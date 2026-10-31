@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Launchwell Studio website
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 (App Router, TypeScript, Tailwind v4). Pages: `/`, `/agencies`, `/pakistan`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | File |
+|---|---|
+| All prices (service cards, FAQ, estimator, PKR packages) | `src/config/pricing.ts` |
+| Email, WhatsApp, socials, Fiverr, founder photo, real stats | `src/config/site.ts` |
+| Fiverr reviews (word for word only) | `src/content/reviews.ts` |
+| Service cards | `src/content/services.ts` |
+| WooCommerce problems list | `src/content/woo-problems.ts` |
+| FAQ | `src/content/faq.ts` |
+| "Recent work" strip (off) | `src/components/recent-work.tsx` |
+| Form handler (Resend, honeypot, rate limit) | `src/app/api/contact/route.ts` |
+| GA4 + Meta Pixel | `src/components/analytics.tsx`, events in `src/lib/track.ts` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing prices
 
-## Learn More
+Open `src/config/pricing.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+- `startingPrices`: the "from $X" numbers shown on cards, in the FAQ, on the agencies page and in schema.org data.
+- `launchOffer`: the "20% off for our first 5 clients" line (hero + estimator). Set `enabled: false` to remove it.
+- `pkrPackages`: the three Pakistan packages.
+- `estimatorServices`: each service has a `base` price/day range, and every answer adds `price: [min, max]` and `days: [min, max]` on top. `monthly` adds a "+ $X/month" line. Labels can be renamed and options added or removed freely.
+- `urgencyOptions`: the multipliers for "Sooner" and "Urgent".
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See `.env.example`. All are optional; the site works without any of them.
 
-## Deploy on Vercel
+| Variable | What it does |
+|---|---|
+| `RESEND_API_KEY` | Sends form submissions by email. Without it, forms fall back to a pre-filled email link. |
+| `RESEND_FROM` | Sender address, e.g. `Launchwell <hello@yourdomain.com>`. Needs that domain verified in Resend. Default `onboarding@resend.dev` (only delivers to your Resend account's own email). |
+| `CONTACT_TO_EMAIL` | Where submissions go. Default `studiolaunchwell@gmail.com`. |
+| `NEXT_PUBLIC_GA_ID` | GA4 measurement ID (`G-…`). Off when empty. |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID. Off when empty. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL. Set this when you add a custom domain. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`NEXT_PUBLIC_*` values are baked in at build time, so redeploy after changing them.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Lead events
+
+Sent as `generate_lead` in GA4 and `Lead` in Meta Pixel, with a source:
+`free_check_form`, `project_form`, `whatsapp`, `email`, `estimator` (on "Send me this estimate").
