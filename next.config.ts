@@ -1,9 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
+  async redirects() {
+    return [
+      // The agency offer now lives on its keyword URL.
+      { source: "/agencies", destination: "/white-label-web-development", permanent: true },
+    ];
+  },
   turbopack: {
     rules: {
       "*.css": {

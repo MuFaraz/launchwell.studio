@@ -27,7 +27,7 @@ export function WooFixer({ problems }: { problems: WooProblem[] }) {
   }
 
   return (
-    <div className="grid overflow-hidden rounded-lg border border-line bg-white md:grid-cols-12">
+    <div className="grid overflow-hidden rounded-[14px] border border-line bg-white md:grid-cols-12">
       <div className="flex flex-col border-b border-line md:col-span-5 md:border-r md:border-b-0">
       <div role="tablist" aria-orientation="vertical" aria-label="Common WooCommerce problems" className="border-line md:border-b">
         {problems.map((p, i) => {
@@ -56,7 +56,7 @@ export function WooFixer({ problems }: { problems: WooProblem[] }) {
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="flex-1 font-bold leading-snug">{p.title}</span>
+              <span className="flex-1 font-semibold leading-snug">{p.title}</span>
               <span
                 aria-hidden="true"
                 className={`mt-0.5 transition-transform ${selected ? "translate-x-0 text-brand" : "-translate-x-1 text-muted opacity-0 group-hover:translate-x-0 group-hover:opacity-100"}`}
@@ -68,7 +68,7 @@ export function WooFixer({ problems }: { problems: WooProblem[] }) {
         })}
       </div>
         <div className="mt-auto hidden p-6 md:block">
-          <p className="font-bold">Not on the list?</p>
+          <p className="font-semibold">Not on the list?</p>
           <p className="mt-1 text-sm leading-relaxed text-muted">
             Plugin errors, broken layouts, a hacked site, a store that won’t load. Send us the link and tell us
             what’s happening.
@@ -84,7 +84,7 @@ export function WooFixer({ problems }: { problems: WooProblem[] }) {
         className="p-6 focus-visible:-outline-offset-4 sm:p-8 md:col-span-7"
       >
         <p className="eyebrow text-muted">What you see</p>
-        <p className="mt-2 text-lg leading-relaxed sm:text-xl">{problem.symptom}</p>
+        <p className="mt-2 text-lg leading-relaxed">{problem.symptom}</p>
 
         <div className="mt-8 grid gap-8 sm:grid-cols-2">
           <div>
@@ -115,10 +115,10 @@ export function WooFixer({ problems }: { problems: WooProblem[] }) {
 
         <div className="mt-8 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-muted">
-            <strong className="font-bold text-ink">{problem.time}</strong> · fixes from {usd(startingPrices.fix)}
+            <strong className="font-semibold text-ink">{problem.time}</strong> · fixes from {usd(startingPrices.fix)}
           </p>
-          <Link href="/#check" className="btn btn-primary min-h-11 text-sm">
-            Have us look at yours, free
+          <Link href={`/fixes/${problem.slug}`} className="link text-sm font-semibold">
+            Read the full fix guide
           </Link>
         </div>
       </div>

@@ -55,7 +55,7 @@ export default function PakistanPage() {
           <p className="eyebrow text-muted">Pakistan · Karachi se, poore Pakistan ke liye</p>
           <h1
             id="pk-title"
-            className="mt-6 max-w-4xl text-[clamp(2.4rem,6vw,4.75rem)] leading-[1.02] tracking-[-0.04em]"
+            className="t-h1 mt-6 max-w-4xl"
           >
             Apna business online laayen. <span className="mark">Sahi tareeqay se.</span>
           </h1>
@@ -88,7 +88,7 @@ export default function PakistanPage() {
       <section id="packages" aria-labelledby="pk-packages-title" className="scroll-mt-16 py-20 md:py-28">
         <div className="container-x">
           <SectionHeader
-            index="01"
+           
             label="Packages"
             id="pk-packages-title"
             title="Teen packages. Clear prices."
@@ -102,12 +102,12 @@ export default function PakistanPage() {
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
               >
-                <h3 className="text-2xl">{p.name}</h3>
+                <h3 className="t-h3">{p.name}</h3>
                 <p className="mt-5">
-                  <span className={`text-sm font-bold ${i === 1 ? "text-on-ink-muted" : "text-muted"}`}>from </span>
-                  <span className="text-4xl font-extrabold tracking-tight tabular-nums">{pkr(p.price)}</span>
+                  <span className={`text-sm font-semibold ${i === 1 ? "text-on-ink-muted" : "text-muted"}`}>from </span>
+                  <span className="text-4xl font-semibold tracking-tight tabular-nums">{pkr(p.price)}</span>
                 </p>
-                <p className={`mt-1 text-sm font-bold ${i === 1 ? "text-brand" : "text-brand-ink"}`}>{p.time}</p>
+                <p className={`mt-1 text-sm font-semibold ${i === 1 ? "text-brand" : "text-brand-ink"}`}>{p.time}</p>
                 <ul className="mt-6 flex-1 space-y-3">
                   {p.includes.map((item) => (
                     <li key={item} className="flex gap-3 leading-snug">
@@ -139,12 +139,12 @@ export default function PakistanPage() {
 
       <section aria-labelledby="pk-steps-title" className="border-t border-line bg-paper-2 py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader index="02" label="Kaise kaam hota hai" id="pk-steps-title" title="Chaar simple steps." />
+          <SectionHeader label="Kaise kaam hota hai" id="pk-steps-title" title="Chaar simple steps." />
           <ol className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <li key={s.title} className="border-t-2 border-ink pt-5" data-reveal style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}>
                 <p className="font-mono text-sm text-brand-ink">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-3 text-xl">{s.title}</h3>
+                <h3 className="t-h3 mt-3">{s.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
               </li>
             ))}
@@ -154,7 +154,7 @@ export default function PakistanPage() {
 
       <section aria-labelledby="pk-faq-title" className="border-t border-line py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader index="03" label="Sawal jawab" id="pk-faq-title" title="Aksar poochay jaane wale sawal." />
+          <SectionHeader label="Sawal jawab" id="pk-faq-title" title="Aksar poochay jaane wale sawal." />
           <div className="mt-12 md:grid md:grid-cols-12">
             <div className="md:col-span-9 md:col-start-4" data-reveal>
               <FaqList items={faqs} />
@@ -166,7 +166,7 @@ export default function PakistanPage() {
       <section aria-labelledby="pk-contact-title" className="on-ink bg-ink py-20 text-on-ink md:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5" data-reveal>
-            <h2 id="pk-contact-title" className="text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.03]">
+            <h2 id="pk-contact-title" className="t-h2">
               Shuru karein? Ek message kaafi hai.
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-on-ink-muted">

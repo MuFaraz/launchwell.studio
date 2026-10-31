@@ -1,69 +1,90 @@
+import { siFiverr } from "simple-icons";
 import { site } from "@/config/site";
-import { reviews } from "@/content/reviews";
+import { reviews, type Review } from "@/content/reviews";
+import { ReviewsTrack } from "./reviews-track";
+
+export function FiverrBadge() {
+  return (
+    <a
+      href={site.fiverr}
+      target="_blank"
+      rel="noopener"
+      className="card card-lift inline-flex items-center gap-3 px-4 py-3"
+      aria-label={`Rated ${site.stats.fiverrRating} out of 5 on Fiverr from ${site.stats.fiverrReviews} reviews (opens Fiverr)`}
+    >
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+        <path d={siFiverr.path} fill={`#${siFiverr.hex}`} />
+      </svg>
+      <span className="leading-tight">
+        <span className="flex items-center gap-1 font-semibold">
+          <span aria-hidden="true" className="text-[#e8a317]">
+            ★★★★★
+          </span>
+          {site.stats.fiverrRating}
+        </span>
+        <span className="text-sm text-muted">{site.stats.fiverrReviews} reviews on Fiverr</span>
+      </span>
+    </a>
+  );
+}
 
 export function Reviews() {
-  const [lead, ...rest] = reviews;
   return (
-    <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-12">
-      <figure
-        className="flex flex-col justify-between bg-white p-6 sm:p-10 md:col-span-12 lg:col-span-7 lg:row-span-3"
-        data-reveal
-      >
-        <blockquote>
-          <p className="text-[clamp(1.35rem,2.4vw,1.85rem)] leading-[1.35] font-bold tracking-[-0.015em]">
-            <span aria-hidden="true" className="mr-1 text-brand-ink">
-              “
-            </span>
-            {lead.quote}
-            <span aria-hidden="true" className="text-brand-ink">
-              ”
-            </span>
-          </p>
-        </blockquote>
-        <Caption review={lead} />
-      </figure>
-
-      {rest.map((r, i) => (
-        <figure
-          key={`${r.name}-${i}`}
-          className="flex flex-col justify-between bg-white p-6 sm:p-8 md:col-span-6 lg:col-span-5"
-          data-reveal
-          style={{ ["--reveal-delay" as string]: `${(i + 1) * 80}ms` }}
-        >
-          <blockquote>
-            <p className={r.translation ? "text-2xl font-bold" : "leading-relaxed"}>
-              “{r.quote}”
-              {r.translation ? (
-                <span className="mt-1 block text-base font-medium text-muted">({r.translation})</span>
-              ) : null}
-            </p>
-          </blockquote>
-          <Caption review={r} />
-        </figure>
-      ))}
-
-      <div className="flex items-center bg-paper-2 p-6 sm:px-8 md:col-span-6 lg:col-span-12">
-        <p className="text-sm text-muted">
-          Excerpts from real Fiverr reviews. We’re rated {site.stats.fiverrRating} from{" "}
-          {site.stats.fiverrReviews} reviews.{" "}
-          <a href={site.fiverr} target="_blank" rel="noopener" className="link font-bold">
-            Read them all on Fiverr
-          </a>
-        </p>
-      </div>
+    <div>
+      <ReviewsTrack>
+        {reviews.map((r, i) => (
+          <ReviewCard key={`${r.name}-${i}`} review={r} lead={i === 0} />
+        ))}
+      </ReviewsTrack>
+      <p className="mt-6 text-sm text-muted">
+        Excerpts from real Fiverr reviews.{" "}
+        <a href={site.fiverr} target="_blank" rel="noopener" className="link font-semibold">
+          Read them all on Fiverr
+        </a>
+      </p>
     </div>
   );
 }
 
-function Caption({ review }: { review: (typeof reviews)[number] }) {
+function ReviewCard({ review, lead }: { review: Review; lead: boolean }) {
   return (
-    <figcaption className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm">
-      <cite className="font-bold not-italic">{review.name}</cite>
-      <span className="text-muted">{review.country}</span>
-      <span className="w-full text-muted sm:w-auto">
-        {review.project}
-        {review.detail ? ` · ${review.detail}` : ""}
-      </span>
-    </figcaption>
+    <figure
+      className={`card card-lift flex w-[85%] shrink-0 snap-start flex-col justify-between p-6 sm:p-7 md:w-auto ${
+        lead ? "md:col-span-2 lg:col-span-7 lg:row-span-3 lg:p-10" : "lg:col-span-5"
+      }`}
+    >
+      <blockquote>
+        <p
+          className={
+            lead
+              ? "text-[1.15rem] leading-[1.5] font-medium tracking-[-0.01em] lg:text-[1.6rem] lg:leading-[1.4]"
+              : review.translation
+                ? "text-xl font-semibold"
+                : "leading-relaxed"
+          }
+        >
+          “{review.quote}”
+          {review.translation ? (
+            <span className="mt-1 block text-base font-normal text-muted">({review.translation})</span>
+          ) : null}
+        </p>
+      </blockquote>
+      <figcaption className="mt-6 flex items-center gap-3 text-sm">
+        <span
+          aria-hidden="true"
+          className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-paper-2 text-xs font-semibold text-muted uppercase"
+        >
+          {review.name.slice(0, 2)}
+        </span>
+        <span className="leading-snug">
+          <cite className="font-semibold not-italic">{review.name}</cite>
+          <span className="text-muted"> · {review.country}</span>
+          <span className="block text-muted">
+            {review.project}
+            {review.detail ? ` · ${review.detail}` : ""}
+          </span>
+        </span>
+      </figcaption>
+    </figure>
   );
 }

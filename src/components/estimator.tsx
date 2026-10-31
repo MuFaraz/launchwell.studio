@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   estimatorServices,
   launchOffer,
@@ -60,6 +60,31 @@ function calculate(service: EstimatorService, answers: Answers, urgencyId: strin
   };
 }
 
+// Animates a number towards its new value (ease-out, ~450ms). Instant for reduced motion.
+function useTween(target: number, duration = 450) {
+  const [value, setValue] = useState(target);
+  const current = useRef(target);
+  useEffect(() => {
+    const from = current.current;
+    if (from === target) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const start = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const t = reduce ? 1 : Math.min(1, (now - start) / duration);
+      const v = from + (target - from) * (1 - Math.pow(1 - t, 3));
+      current.current = v;
+      setValue(v);
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [target, duration]);
+  return value;
+}
+
+const money = (n: number) => usd(Math.round(n / 5) * 5);
+
 export function Estimator() {
   const [serviceId, setServiceId] = useState(estimatorServices[0].id);
   const service = estimatorServices.find((s) => s.id === serviceId) ?? estimatorServices[0];
@@ -68,6 +93,8 @@ export function Estimator() {
 
   const result = useMemo(() => calculate(service, answers, urgencyId), [service, answers, urgencyId]);
   const timeline = dayRange(result.daysMin, result.daysMax);
+  const shownMin = useTween(result.min);
+  const shownMax = useTween(result.max);
 
   function pickService(id: string) {
     const next = estimatorServices.find((s) => s.id === id);
@@ -112,7 +139,7 @@ export function Estimator() {
     <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
       <div className="space-y-9 lg:col-span-7">
         <fieldset>
-          <legend className="mb-4 text-lg font-extrabold">
+          <legend className="mb-4 text-lg font-semibold">
             <span className="mr-2 text-brand">1</span>What do you need?
           </legend>
           <div className="grid grid-cols-2 gap-2 xl:grid-cols-3">
@@ -133,7 +160,7 @@ export function Estimator() {
                     onChange={() => pickService(s.id)}
                     className="sr-only"
                   />
-                  <span className="leading-snug font-bold">{s.label}</span>
+                  <span className="leading-snug font-semibold">{s.label}</span>
                   <span className="mt-0.5 hidden text-sm text-on-ink-muted sm:block">{s.short}</span>
                   {active ? (
                     <span aria-hidden="true" className="absolute top-3 right-3 h-2 w-2 rounded-full bg-brand" />
@@ -145,12 +172,12 @@ export function Estimator() {
         </fieldset>
 
         <div className="space-y-7">
-          <p className="text-lg font-extrabold">
+          <p className="text-lg font-semibold">
             <span className="mr-2 text-brand">2</span>A few details
           </p>
           {service.questions.map((q) => (
             <fieldset key={`${service.id}-${q.id}`}>
-              <legend className="mb-2.5 text-sm font-bold text-on-ink-muted">
+              <legend className="mb-2.5 text-sm font-semibold text-on-ink-muted">
                 {q.label}
                 {q.type === "multi" ? <span className="font-medium"> (pick any)</span> : null}
               </legend>
@@ -175,7 +202,7 @@ export function Estimator() {
         </div>
 
         <fieldset>
-          <legend className="mb-2.5 text-lg font-extrabold">
+          <legend className="mb-2.5 text-lg font-semibold">
             <span className="mr-2 text-brand">3</span>How soon?
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -197,8 +224,8 @@ export function Estimator() {
           <div className="flex items-center justify-between gap-3 rounded-md border border-brand/40 bg-ink-2 px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
             <span className="text-sm text-on-ink-muted">Estimate</span>
             <span className="text-right">
-              <span className="block font-extrabold tabular-nums">
-                {usd(result.min)}–{usd(result.max)}
+              <span className="block font-semibold tabular-nums">
+                {money(shownMin)}–{money(shownMax)}
                 {result.monthly ? <span className="text-brand"> + {usd(result.monthly)}/mo</span> : null}
               </span>
               <span className="block text-xs text-on-ink-muted">About {timeline}</span>
@@ -208,24 +235,30 @@ export function Estimator() {
       </div>
 
       <div className="lg:col-span-5">
-        <div className="rounded-lg border border-ink-line bg-ink-2 p-6 sm:p-7 lg:sticky lg:top-24">
+        <div className="rounded-xl border border-ink-line bg-ink-2 p-6 sm:p-7 lg:sticky lg:top-24">
           <p className="eyebrow text-on-ink-muted">Your estimate</p>
           <p className="mt-1 text-sm text-on-ink-muted">{service.label}</p>
           <output aria-live="polite" className="mt-4 block">
-            <span className="block text-[clamp(2.25rem,5vw,3.25rem)] leading-none font-extrabold tracking-tight tabular-nums">
-              {usd(result.min)}–{usd(result.max)}
+            <span className="sr-only">
+              Estimate {usd(result.min)} to {usd(result.max)}.
+            </span>
+            <span
+              aria-hidden="true"
+              className="block text-[clamp(2.1rem,4.5vw,3rem)] leading-none font-semibold tracking-[-0.02em] tabular-nums"
+            >
+              {money(shownMin)}–{money(shownMax)}
             </span>
             {result.monthly ? (
-              <span className="mt-2 block font-bold text-brand">+ {usd(result.monthly)}/month care plan</span>
+              <span className="mt-2 block font-semibold text-brand">+ {usd(result.monthly)}/month care plan</span>
             ) : null}
             <span className="mt-3 block text-on-ink-muted">
-              About <strong className="font-bold text-white">{timeline}</strong>
+              About <strong className="font-semibold text-white">{timeline}</strong>
               {result.urgency.id !== "standard" ? " (subject to availability)" : ""}
             </span>
           </output>
 
           {launchOffer.enabled ? (
-            <p className="mt-5 flex items-start gap-2 rounded-md border border-brand/40 bg-brand/10 px-3 py-2.5 text-sm font-bold text-white">
+            <p className="mt-5 flex items-start gap-2 rounded-md border border-brand/40 bg-brand/10 px-3 py-2.5 text-sm font-semibold text-white">
               <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
               <span>
                 {launchOffer.text} <span className="font-medium text-on-ink-muted">Taken off your final quote.</span>
@@ -268,7 +301,7 @@ function Chip({
       }`}
     >
       <input type={type} name={name} value={option.id} checked={checked} onChange={onChange} className="sr-only" />
-      <span className="font-bold">
+      <span className="font-semibold">
         {type === "checkbox" ? (
           <span aria-hidden="true" className="mr-1.5 inline-block w-3">
             {checked ? "✓" : "+"}

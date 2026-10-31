@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { JsonLd, siteGraph } from "@/components/json-ld";
 import { RevealObserver } from "@/components/reveal-observer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { site } from "@/config/site";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={jakarta.variable}>
       <body className="flex min-h-dvh flex-col">
+        <JsonLd data={siteGraph()} />
         <Header />
         <main id="main" className="flex-1">
           {children}

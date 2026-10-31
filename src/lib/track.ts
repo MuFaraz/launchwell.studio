@@ -1,7 +1,7 @@
 // Fires a "Lead" in GA4 (as generate_lead) and Meta Pixel (as Lead).
 // Safe to call when neither is installed.
 
-export type LeadSource = "free_check_form" | "project_form" | "whatsapp" | "estimator" | "email";
+export type LeadSource = "free_check_form" | "project_form" | "whatsapp" | "estimator" | "email" | "call";
 
 type TrackWindow = Window & {
   gtag?: (...args: unknown[]) => void;

@@ -10,8 +10,8 @@ import { usd } from "@/lib/format";
 export const metadata: Metadata = {
   title: "White-label web development for agencies",
   description: `An extra developer for your agency. WordPress, WooCommerce, Shopify and custom builds under your brand. ${usd(startingPrices.agencyHourly.min)}–${startingPrices.agencyHourly.max}/hour or fixed price. First task at half rate.`,
-  alternates: { canonical: "/agencies" },
-  openGraph: { url: "/agencies" },
+  alternates: { canonical: "/white-label-web-development" },
+  openGraph: { url: "/white-label-web-development" },
 };
 
 const rate = `${usd(startingPrices.agencyHourly.min)}–${startingPrices.agencyHourly.max}/hour`;
@@ -54,7 +54,7 @@ export default function AgenciesPage() {
         <div className="container-x grid gap-12 pt-14 pb-20 md:pt-20 lg:grid-cols-12 lg:pb-24">
           <div className="lg:col-span-7">
             <p className="eyebrow text-muted">For agencies · White-label</p>
-            <h1 id="ag-title" className="mt-6 text-[clamp(2.4rem,5.8vw,4.5rem)] leading-[1.02] tracking-[-0.04em]">
+            <h1 id="ag-title" className="t-h1 mt-6 max-w-4xl">
               An extra developer for your agency. <span className="text-muted">You keep the client.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
@@ -80,7 +80,7 @@ export default function AgenciesPage() {
             <dl className="rounded-lg border border-line bg-white">
               {glance.map(([k, v]) => (
                 <div key={k} className="grid grid-cols-3 gap-4 border-b border-line px-5 py-4 last:border-b-0">
-                  <dt className="text-sm font-bold text-muted">{k}</dt>
+                  <dt className="text-sm font-semibold text-muted">{k}</dt>
                   <dd className="col-span-2 font-semibold">{v}</dd>
                 </div>
               ))}
@@ -91,11 +91,11 @@ export default function AgenciesPage() {
 
       <section aria-labelledby="take-title" className="py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader index="01" label="What we take on" id="take-title" title="Send us the work you can’t get to." />
+          <SectionHeader label="What we take on" id="take-title" title="Send us the work you can’t get to." />
           <ul className="mt-14 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {takeOn.map((t, i) => (
               <li key={t.title} className="bg-white p-6 sm:p-7" data-reveal style={{ ["--reveal-delay" as string]: `${(i % 3) * 70}ms` }}>
-                <h3 className="text-xl">{t.title}</h3>
+                <h3 className="t-h3">{t.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{t.body}</p>
               </li>
             ))}
@@ -105,11 +105,11 @@ export default function AgenciesPage() {
 
       <section aria-labelledby="how-title" className="border-t border-line bg-paper-2 py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader index="02" label="How we work with you" id="how-title" title="Invisible to your client. Easy for your team." />
+          <SectionHeader label="How we work with you" id="how-title" title="Invisible to your client. Easy for your team." />
           <ol className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {principles.map((p, i) => (
               <li key={p.title} className="border-t-2 border-ink pt-5" data-reveal style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}>
-                <h3 className="text-xl">{p.title}</h3>
+                <h3 className="t-h3">{p.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{p.body}</p>
               </li>
             ))}
@@ -119,7 +119,7 @@ export default function AgenciesPage() {
 
       <section aria-labelledby="price-title" className="border-t border-line py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader index="03" label="Turnaround & pricing" id="price-title" title="Simple pricing. Real deadlines." />
+          <SectionHeader label="Turnaround & pricing" id="price-title" title="Simple pricing. Real deadlines." />
           <div className="mt-14 grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-6" data-reveal>
               <h3 className="eyebrow text-muted">Typical turnaround</h3>
@@ -129,7 +129,7 @@ export default function AgenciesPage() {
                   {turnaround.map(([k, v]) => (
                     <tr key={k} className="border-b border-line">
                       <th scope="row" className="py-4 pr-4 font-semibold">{k}</th>
-                      <td className="py-4 text-right font-bold whitespace-nowrap">{v}</td>
+                      <td className="py-4 text-right font-semibold whitespace-nowrap">{v}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -139,20 +139,20 @@ export default function AgenciesPage() {
             <div className="grid gap-4 sm:grid-cols-2 lg:col-span-6" data-reveal>
               <div className="rounded-lg border border-line bg-white p-6">
                 <h3 className="eyebrow text-muted">Hourly</h3>
-                <p className="mt-3 text-[clamp(1.75rem,2.6vw,2.25rem)] font-extrabold tracking-tight whitespace-nowrap">{rate}</p>
+                <p className="mt-3 text-[clamp(1.75rem,2.6vw,2.25rem)] font-semibold tracking-tight whitespace-nowrap">{rate}</p>
                 <p className="mt-3 leading-relaxed text-muted">
                   For ongoing work and maintenance. Time logged per task, so you can bill your client accurately.
                 </p>
               </div>
               <div className="rounded-lg border border-line bg-white p-6">
                 <h3 className="eyebrow text-muted">Fixed price</h3>
-                <p className="mt-3 text-[clamp(1.75rem,2.6vw,2.25rem)] font-extrabold tracking-tight whitespace-nowrap">Per project</p>
+                <p className="mt-3 text-[clamp(1.75rem,2.6vw,2.25rem)] font-semibold tracking-tight whitespace-nowrap">Per project</p>
                 <p className="mt-3 leading-relaxed text-muted">
                   For full builds. Send the brief or Figma and get a fixed quote within 24 hours.
                 </p>
               </div>
               <div className="rounded-lg bg-ink p-6 text-white sm:col-span-2">
-                <p className="text-xl font-extrabold">Start with one small paid test task at half rate.</p>
+                <p className="text-xl font-semibold">Start with one small paid test task at half rate.</p>
                 <p className="mt-2 text-on-ink-muted">
                   See the code, the communication and the turnaround before you commit to anything bigger.
                 </p>
@@ -164,7 +164,7 @@ export default function AgenciesPage() {
 
       <section aria-labelledby="ag-reviews-title" className="border-t border-line py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader index="04" label="Proof" id="ag-reviews-title" title="What clients say." />
+          <SectionHeader label="Proof" id="ag-reviews-title" title="What clients say." />
           <div className="mt-14">
             <Reviews />
           </div>
@@ -177,7 +177,7 @@ export default function AgenciesPage() {
             <p className="eyebrow text-on-ink-muted">
               <span className="text-brand">05</span> — Get started
             </p>
-            <h2 id="start-title" className="mt-5 text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.03]">
+            <h2 id="start-title" className="t-h2 mt-5">
               Tell us about the first task.
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-on-ink-muted">

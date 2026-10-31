@@ -1,8 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// Navy wordmark on light backgrounds, white wordmark on navy sections.
-export function Logo({ variant = "dark", className = "" }: { variant?: "dark" | "white"; className?: string }) {
+// Navy wordmark on light backgrounds, white wordmark on navy (header, footer, dark sections).
+export function Logo({
+  variant = "dark",
+  priority = false,
+  className = "",
+}: {
+  variant?: "dark" | "white";
+  priority?: boolean;
+  className?: string;
+}) {
   return (
     <Link href="/" className={`inline-flex shrink-0 items-center ${className}`} aria-label="Launchwell Studio, home">
       <Image
@@ -10,7 +18,7 @@ export function Logo({ variant = "dark", className = "" }: { variant?: "dark" | 
         alt=""
         width={150}
         height={35}
-        priority={variant === "dark"}
+        priority={priority}
         className="h-8 w-auto sm:h-9"
       />
     </Link>

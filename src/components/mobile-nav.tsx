@@ -35,7 +35,7 @@ export function MobileNav({ items, cta }: { items: NavItem[]; cta: NavItem }) {
       <button
         ref={buttonRef}
         type="button"
-        className="-mr-2 inline-flex h-11 items-center gap-2 rounded-md px-2 text-sm font-bold"
+        className="-mr-2 inline-flex h-11 items-center gap-2 rounded-md px-2 text-sm font-semibold"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
@@ -53,26 +53,26 @@ export function MobileNav({ items, cta }: { items: NavItem[]; cta: NavItem }) {
       <div
         id={panelId}
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-line bg-paper shadow-[0_12px_24px_-16px_rgba(11,16,32,0.25)]"
+        className="absolute inset-x-0 top-full border-b border-white/10 bg-ink shadow-[0_16px_32px_-16px_rgba(0,0,0,0.6)]"
       >
         <nav aria-label="Mobile" className="container-x py-3">
           <ul>
             {items.map((item) => (
-              <li key={item.href} className="border-b border-line last:border-0">
+              <li key={item.href} className="border-b border-white/10 last:border-0">
                 <Link
                   href={item.href}
-                  className="flex min-h-12 items-center justify-between py-3 text-lg font-bold"
+                  className="flex min-h-12 items-center justify-between py-3 text-lg font-semibold"
                   onClick={() => setOpen(false)}
                 >
                   {item.label}
-                  <span aria-hidden="true" className="text-muted">
+                  <span aria-hidden="true" className="text-on-ink-muted">
                     →
                   </span>
                 </Link>
               </li>
             ))}
           </ul>
-          <Link href={cta.href} className="btn btn-primary mt-3 mb-2 w-full" onClick={() => setOpen(false)}>
+          <Link href={cta.href} className="btn btn-brand mt-3 mb-2 w-full" onClick={() => setOpen(false)}>
             {cta.label}
           </Link>
         </nav>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { mailtoUrl, site } from "@/config/site";
+import { mailtoUrl, site, whatsappUrl } from "@/config/site";
 import { ESTIMATE_EVENT, type EstimateEventDetail } from "@/lib/events";
 import { trackLead } from "@/lib/track";
 
@@ -129,20 +129,53 @@ export function LeadForm({
 
   if (status.kind === "sent") {
     return (
-      <div className="rounded-lg border border-ink-line bg-ink-2 p-6 sm:p-8" role="status">
-        <h3 ref={doneRef} tabIndex={-1} className="text-2xl outline-none">
-          Got it. Thanks!
+      <div className="rounded-xl border border-ink-line bg-ink-2 p-6 sm:p-8" role="status">
+        <h3 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
+          Thanks, it’s with us.
         </h3>
-        <p className="mt-3 text-on-ink-muted">
+        <p className="mt-2 text-on-ink-muted">
           {isCheck
-            ? `You’ll get 3 practical fixes${status.website ? ` for ${status.website}` : ""} within 24 hours, usually sooner. If nothing shows up, check your spam folder.`
-            : "We’ll reply within 24 hours with questions or a fixed quote. If nothing shows up, check your spam folder."}
+            ? `We’ll look at ${status.website || "your site"} ourselves, not with a scanner.`
+            : "We’ll read it properly and come back with questions or a fixed quote."}
         </p>
-        <p className="mt-5 text-sm text-on-ink-muted">
-          In a hurry?{" "}
+        <p className="eyebrow mt-6 text-brand">What happens next</p>
+        <ol className="mt-3 space-y-3">
+          {(isCheck
+            ? [
+                "We open your site on a real phone and a desktop, and test the key pages.",
+                "Within 24 hours you get an email with 3 practical fixes, in plain English.",
+                "Fix them yourself, or reply and we’ll quote a fixed price to do it. No pressure either way.",
+              ]
+            : [
+                "We read your message and look at anything you linked.",
+                "Within 24 hours you get questions or a fixed quote with a timeline.",
+                "Nothing starts until you say yes.",
+              ]
+          ).map((step, i) => (
+            <li key={step} className="flex gap-3">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/15 text-xs font-semibold text-brand">
+                {i + 1}
+              </span>
+              <span className="text-[0.975rem]">{step}</span>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-6 border-t border-ink-line pt-5 text-sm text-on-ink-muted">
+          Can’t wait?{" "}
+          <a
+            href={whatsappUrl(`Hi Launchwell, I just sent the form on your website. My name is `)}
+            target="_blank"
+            rel="noopener"
+            className="link font-semibold"
+            onClick={() => trackLead("whatsapp", { form_source: `${source}_thanks` })}
+          >
+            Message us on WhatsApp
+          </a>{" "}
+          or email{" "}
           <a href={`mailto:${site.email}`} className="link">
             {site.email}
           </a>
+          . Nothing in your inbox tomorrow? Check spam.
         </p>
       </div>
     );
@@ -150,8 +183,8 @@ export function LeadForm({
 
   if (status.kind === "fallback") {
     return (
-      <div className="rounded-lg border border-ink-line bg-ink-2 p-6 sm:p-8" role="status">
-        <h3 ref={doneRef} tabIndex={-1} className="text-2xl outline-none">
+      <div className="rounded-xl border border-ink-line bg-ink-2 p-6 sm:p-8" role="status">
+        <h3 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
           One more click
         </h3>
         <p className="mt-3 text-on-ink-muted">
@@ -177,7 +210,7 @@ export function LeadForm({
     <form
       ref={formRef}
       onSubmit={onSubmit}
-      className="relative scroll-mt-24 rounded-lg border border-ink-line bg-ink-2/60 p-5 sm:p-7"
+      className="relative scroll-mt-24 rounded-xl border border-ink-line bg-ink-2/60 p-5 sm:p-7"
     >
       {allowModeSwitch ? (
         <fieldset className="mb-6">
@@ -186,7 +219,7 @@ export function LeadForm({
             {modes.map((m) => (
               <label
                 key={m.id}
-                className={`flex min-h-11 cursor-pointer items-center justify-center rounded-[5px] px-1.5 text-center text-[0.8125rem] font-bold whitespace-nowrap sm:px-2 sm:text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${
+                className={`flex min-h-11 cursor-pointer items-center justify-center rounded-[5px] px-1.5 text-center text-[0.8125rem] font-semibold whitespace-nowrap sm:px-2 sm:text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${
                   mode === m.id ? "bg-white text-ink" : "text-on-ink-muted hover:text-white"
                 }`}
               >
@@ -250,7 +283,7 @@ export function LeadForm({
         {estimate ? (
           <div className="sm:col-span-2">
             <div className="flex items-baseline justify-between gap-3">
-              <p className="text-sm font-bold">Your estimate (included)</p>
+              <p className="text-sm font-semibold">Your estimate (included)</p>
               <button type="button" className="text-sm text-on-ink-muted underline" onClick={() => setEstimate("")}>
                 Remove
               </button>
@@ -324,7 +357,7 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-bold">
+      <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-semibold">
         {label}
         {optional ? <span className="font-medium text-on-ink-muted"> (optional)</span> : null}
       </label>

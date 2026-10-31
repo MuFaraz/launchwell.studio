@@ -6,7 +6,7 @@ export function FaqList({ items }: { items: Faq[] }) {
     <div className="border-t border-line">
       {items.map((item) => (
         <details key={item.q} className="group border-b border-line">
-          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-bold [&::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 text-[1.075rem] font-semibold [&::-webkit-details-marker]:hidden">
             {item.q}
             <span
               aria-hidden="true"

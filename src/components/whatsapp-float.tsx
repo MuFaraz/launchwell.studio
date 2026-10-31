@@ -7,7 +7,7 @@ import { trackLead } from "@/lib/track";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
 const messages: Record<string, string> = {
-  "/agencies": "Hi Launchwell, I'm from an agency and need an extra developer.",
+  "/white-label-web-development": "Hi Launchwell, I'm from an agency and need an extra developer.",
   "/pakistan": "Hi Launchwell, mujhe apne business ki website chahiye.",
 };
 const defaultMessage = "Hi Launchwell, I'd like a quote for my website.";

@@ -1,5 +1,6 @@
 export type WooProblem = {
   id: string;
+  slug: string; // /fixes/[slug]
   title: string;
   symptom: string;
   causes: string[];
@@ -10,6 +11,7 @@ export type WooProblem = {
 export const wooProblems: WooProblem[] = [
   {
     id: "checkout-redirect",
+    slug: "woocommerce-checkout-redirects-to-homepage",
     title: "Checkout sends people back to the homepage",
     symptom:
       "A customer clicks “Place order” and lands on the homepage. No order, no error, no email. Or the cart empties itself halfway through.",
@@ -27,6 +29,7 @@ export const wooProblems: WooProblem[] = [
   },
   {
     id: "payments",
+    slug: "woocommerce-orders-pending-payment",
     title: "Payments fail or orders stay “Pending payment”",
     symptom:
       "The customer was charged, but the order still says Pending. Or Stripe/PayPal shows an error at checkout and people give up.",
@@ -44,6 +47,7 @@ export const wooProblems: WooProblem[] = [
   },
   {
     id: "slow",
+    slug: "woocommerce-slow-product-pages",
     title: "Product and category pages are slow",
     symptom:
       "Pages take 4–6 seconds on a phone. Google PageSpeed is red. You’ve installed two speed plugins and it got worse.",
@@ -61,6 +65,7 @@ export const wooProblems: WooProblem[] = [
   },
   {
     id: "conflict",
+    slug: "wordpress-update-broke-site",
     title: "An update broke the site",
     symptom:
       "You updated a plugin or WooCommerce and now see “There has been a critical error”, a white screen, or a layout that fell apart.",
@@ -78,6 +83,7 @@ export const wooProblems: WooProblem[] = [
   },
   {
     id: "emails",
+    slug: "woocommerce-emails-not-sending",
     title: "Order emails don’t arrive",
     symptom:
       "Customers say they never got a confirmation. You don’t get “New order” emails either, or they land in spam.",
