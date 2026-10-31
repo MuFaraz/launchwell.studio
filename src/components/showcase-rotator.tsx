@@ -10,7 +10,16 @@ export function ShowcaseRotator({ slides, interval = 4000 }: { slides: ShowcaseS
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
+  // Only the first slide is in the DOM at load; the rest mount once the browser is idle.
+  const [mountAll, setMountAll] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1200));
+    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
+    const id = ric(() => setMountAll(true), { timeout: 2500 });
+    return () => cancel(id);
+  }, []);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -51,7 +60,8 @@ export function ShowcaseRotator({ slides, interval = 4000 }: { slides: ShowcaseS
           </span>
         </div>
         <div className="@container relative aspect-[16/11] bg-white">
-          {slides.map((s, i) => (
+          {slides.map((s, i) =>
+            i !== active && !mountAll ? null : (
             <div
               key={s.url}
               className="slide absolute inset-0"
@@ -61,12 +71,13 @@ export function ShowcaseRotator({ slides, interval = 4000 }: { slides: ShowcaseS
             >
               {s.node}
             </div>
-          ))}
+            ),
+          )}
         </div>
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-4">
-        <p className="text-sm text-on-ink-muted" aria-live="polite">
+        <p className="text-sm text-on-ink-muted" data-showcase-label>
           <span className="font-semibold text-white">Concept designs</span>
           <span aria-hidden="true"> · </span>
           {current.label}
@@ -76,7 +87,10 @@ export function ShowcaseRotator({ slides, interval = 4000 }: { slides: ShowcaseS
             <button
               key={s.url}
               type="button"
-              onClick={() => setActive(i)}
+              onClick={() => {
+                setMountAll(true);
+                setActive(i);
+              }}
               aria-label={`Show ${s.label}`}
               aria-pressed={i === active}
               className="grid h-8 w-6 place-items-center"
