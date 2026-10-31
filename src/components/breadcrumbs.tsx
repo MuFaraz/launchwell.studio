@@ -4,7 +4,7 @@ import { JsonLd, breadcrumbJsonLd, type Crumb } from "./json-ld";
 // Visible breadcrumb trail + BreadcrumbList JSON-LD. "Home" is added automatically.
 export function Breadcrumbs({ items, tone = "dark" }: { items: Crumb[]; tone?: "dark" | "light" }) {
   const crumbs: Crumb[] = [{ name: "Home", path: "/" }, ...items];
-  const muted = tone === "dark" ? "text-on-ink-muted" : "text-muted";
+  const muted = tone === "dark" ? "text-muted" : "text-muted";
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
@@ -15,7 +15,7 @@ export function Breadcrumbs({ items, tone = "dark" }: { items: Crumb[]; tone?: "
             return (
               <li key={c.path} className="flex items-center gap-2">
                 {last ? (
-                  <span aria-current="page" className={tone === "dark" ? "text-white" : "text-ink"}>
+                  <span aria-current="page" className={tone === "dark" ? "text-white" : "text-fg"}>
                     {c.name}
                   </span>
                 ) : (

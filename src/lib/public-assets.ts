@@ -11,7 +11,3 @@ function firstExisting(candidates: string[]) {
 
 export const founderPhoto = firstExisting([site.founderPhotoPath, "/founder.webp", "/founder.png"]);
 
-// Concept screenshots for the hero browser mockup: /public/concepts/concept-1.jpg … concept-3.jpg
-export function conceptShot(n: 1 | 2 | 3) {
-  return firstExisting(["webp", "jpg", "png", "avif"].map((ext) => `/concepts/concept-${n}.${ext}`));
-}

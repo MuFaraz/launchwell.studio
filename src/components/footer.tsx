@@ -31,13 +31,13 @@ const fixTitles: Record<string, string> = {
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="eyebrow text-on-ink-muted">{title}</h2>
+      <h2 className="eyebrow text-muted">{title}</h2>
       <ul className="mt-4 space-y-2.5 text-[0.95rem]">{children}</ul>
     </div>
   );
 }
 
-const linkCls = "link-quiet text-white/85 hover:text-white";
+const linkCls = "link-quiet text-muted transition-colors hover:text-fg";
 
 export function Footer() {
   const social = [
@@ -48,11 +48,11 @@ export function Footer() {
   ].filter((s) => s.href);
 
   return (
-    <footer className="on-ink ink-texture border-t border-white/10 text-on-ink">
+    <footer className="hairline-top bg-bg text-fg">
       <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo variant="white" />
-          <p className="mt-5 max-w-sm text-on-ink-muted">
+          <p className="mt-5 max-w-sm text-muted">
             A small web studio run by {site.founder}. Websites and online stores that work properly.
           </p>
           <ul className="mt-6 space-y-2.5 text-[0.95rem]">
@@ -72,7 +72,7 @@ export function Footer() {
                 WhatsApp {site.whatsappDisplay}
               </TrackedLink>
             </li>
-            <li className="text-on-ink-muted">Replies within 24 hours.</li>
+            <li className="text-muted">Replies within 24 hours.</li>
           </ul>
         </div>
 
@@ -123,7 +123,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-x flex flex-col gap-3 pt-6 pb-24 text-sm text-on-ink-muted md:pb-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="container-x flex flex-col gap-3 pt-6 pb-24 text-sm text-muted md:pb-6 lg:flex-row lg:items-center lg:justify-between">
           <Nap />
           <p className="shrink-0">
             © <Year /> {site.name} · Prices in USD unless marked

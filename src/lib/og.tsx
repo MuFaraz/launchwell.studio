@@ -6,15 +6,14 @@ export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
 
 // Read once at module load (build time), so the images are prerendered.
-const [extraBold, medium, logoSvg] = await Promise.all([
-  readFile(join(process.cwd(), "assets/PlusJakartaSans-800.ttf")),
-  readFile(join(process.cwd(), "assets/PlusJakartaSans-500.ttf")),
+const [semibold, regular, logoSvg] = await Promise.all([
+  readFile(join(process.cwd(), "assets/Inter-600.ttf")),
+  readFile(join(process.cwd(), "assets/Inter-400.ttf")),
   readFile(join(process.cwd(), "public/launchwell-logo-white.svg"), "utf8"),
 ]);
-// Drop the embedded metadata block; the renderer only needs the shapes.
-const logo = `data:image/svg+xml;base64,${Buffer.from(logoSvg.replace(/<metadata>[\s\S]*?<\/metadata>/, "")).toString("base64")}`;
+const logo = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString("base64")}`;
 
-// Shared Open Graph card: white logo on navy, one big line, one small line.
+// Shared Open Graph card: Dark Premium palette, logo, one big line, one small line.
 export function renderOg({ title, kicker }: { title: string; kicker: string }) {
   return new ImageResponse(
     (
@@ -25,20 +24,30 @@ export function renderOg({ title, kicker }: { title: string; kicker: string }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0B1020",
-          color: "#FFFFFF",
+          backgroundColor: "#0E0A16",
+          backgroundImage:
+            "radial-gradient(circle at 92% 0%, rgba(124,92,255,0.45), rgba(255,122,61,0.18) 35%, transparent 60%), radial-gradient(circle at 0% 100%, rgba(192,75,216,0.22), transparent 45%)",
+          color: "#F4F1FA",
           padding: "72px 80px",
-          fontFamily: "Jakarta",
+          fontFamily: "Inter",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logo} width={342} height={80} alt="" />
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: 1000 }}>
+          <div style={{ fontSize: 66, fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.04em", maxWidth: 1020 }}>
             {title}
           </div>
-          <div style={{ display: "flex", alignItems: "center", marginTop: 32, fontSize: 28, fontWeight: 500, color: "#A8B2C6" }}>
-            <div style={{ width: 40, height: 4, background: "#5E9EFF", marginRight: 18 }} />
+          <div style={{ display: "flex", alignItems: "center", marginTop: 34, fontSize: 28, fontWeight: 400, color: "#B8B0C8" }}>
+            <div
+              style={{
+                width: 56,
+                height: 4,
+                borderRadius: 4,
+                backgroundImage: "linear-gradient(100deg, #7C5CFF 0%, #C04BD8 45%, #FF7A3D 100%)",
+                marginRight: 18,
+              }}
+            />
             {kicker}
           </div>
         </div>
@@ -47,8 +56,8 @@ export function renderOg({ title, kicker }: { title: string; kicker: string }) {
     {
       ...ogSize,
       fonts: [
-        { name: "Jakarta", data: extraBold, weight: 800, style: "normal" },
-        { name: "Jakarta", data: medium, weight: 500, style: "normal" },
+        { name: "Inter", data: semibold, weight: 600, style: "normal" },
+        { name: "Inter", data: regular, weight: 400, style: "normal" },
       ],
     },
   );

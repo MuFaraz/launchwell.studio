@@ -129,16 +129,16 @@ export function LeadForm({
 
   if (status.kind === "sent") {
     return (
-      <div className="rounded-xl border border-ink-line bg-ink-2 p-6 sm:p-8" role="status">
+      <div className="card glass p-6 sm:p-8" role="status">
         <h3 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
           Thanks, it’s with us.
         </h3>
-        <p className="mt-2 text-on-ink-muted">
+        <p className="mt-2 text-muted">
           {isCheck
             ? `We’ll look at ${status.website || "your site"} ourselves, not with a scanner.`
             : "We’ll read it properly and come back with questions or a fixed quote."}
         </p>
-        <p className="eyebrow mt-6 text-brand">What happens next</p>
+        <p className="eyebrow mt-6 text-orange">What happens next</p>
         <ol className="mt-3 space-y-3">
           {(isCheck
             ? [
@@ -153,14 +153,14 @@ export function LeadForm({
               ]
           ).map((step, i) => (
             <li key={step} className="flex gap-3">
-              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/15 text-xs font-semibold text-brand">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-violet/15 text-xs font-semibold text-orange">
                 {i + 1}
               </span>
               <span className="text-[0.975rem]">{step}</span>
             </li>
           ))}
         </ol>
-        <p className="mt-6 border-t border-ink-line pt-5 text-sm text-on-ink-muted">
+        <p className="mt-6 border-t border-line pt-5 text-sm text-muted">
           Can’t wait?{" "}
           <a
             href={whatsappUrl(`Hi Launchwell, I just sent the form on your website. My name is `)}
@@ -183,11 +183,11 @@ export function LeadForm({
 
   if (status.kind === "fallback") {
     return (
-      <div className="rounded-xl border border-ink-line bg-ink-2 p-6 sm:p-8" role="status">
+      <div className="card glass p-6 sm:p-8" role="status">
         <h3 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
           One more click
         </h3>
-        <p className="mt-3 text-on-ink-muted">
+        <p className="mt-3 text-muted">
           Our form couldn’t send this right now. Your message is ready in an email. Press the button and hit send.
         </p>
         <a
@@ -197,7 +197,7 @@ export function LeadForm({
         >
           Open it in my email app
         </a>
-        <p className="mt-4 text-sm text-on-ink-muted">
+        <p className="mt-4 text-sm text-muted">
           Or write to <span className="text-white">{site.email}</span> directly.
         </p>
       </div>
@@ -210,17 +210,17 @@ export function LeadForm({
     <form
       ref={formRef}
       onSubmit={onSubmit}
-      className="relative scroll-mt-24 rounded-xl border border-ink-line bg-ink-2/60 p-5 sm:p-7"
+      className="card glass relative scroll-mt-24 p-5 sm:p-7"
     >
       {allowModeSwitch ? (
         <fieldset className="mb-6">
           <legend className="sr-only">What can we help with?</legend>
-          <div className="grid grid-cols-2 gap-1 rounded-md border border-ink-line bg-ink p-1">
+          <div className="grid grid-cols-2 gap-1 rounded-full border border-line bg-white/[0.03] p-1">
             {modes.map((m) => (
               <label
                 key={m.id}
-                className={`flex min-h-11 cursor-pointer items-center justify-center rounded-[5px] px-1.5 text-center text-[0.8125rem] font-semibold whitespace-nowrap sm:px-2 sm:text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${
-                  mode === m.id ? "bg-white text-ink" : "text-on-ink-muted hover:text-white"
+                className={`flex min-h-11 cursor-pointer items-center justify-center rounded-full px-1.5 text-center text-[0.8125rem] font-semibold whitespace-nowrap sm:px-2 sm:text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-violet-soft ${
+                  mode === m.id ? "bg-white text-bg" : "text-muted hover:text-fg"
                 }`}
               >
                 <input
@@ -284,11 +284,11 @@ export function LeadForm({
           <div className="sm:col-span-2">
             <div className="flex items-baseline justify-between gap-3">
               <p className="text-sm font-semibold">Your estimate (included)</p>
-              <button type="button" className="text-sm text-on-ink-muted underline" onClick={() => setEstimate("")}>
+              <button type="button" className="text-sm text-muted underline" onClick={() => setEstimate("")}>
                 Remove
               </button>
             </div>
-            <pre className="mt-2 max-h-48 overflow-auto rounded-md border border-ink-line bg-ink p-3 font-sans text-sm leading-relaxed whitespace-pre-wrap text-on-ink-muted">
+            <pre className="mt-2 max-h-48 overflow-auto rounded-xl border border-line bg-white/[0.03] p-3 font-sans text-sm leading-relaxed whitespace-pre-wrap text-muted">
               {estimate}
             </pre>
           </div>
@@ -334,7 +334,7 @@ export function LeadForm({
         <button type="submit" className="btn btn-brand w-full sm:w-auto" disabled={sending} aria-disabled={sending}>
           {sending ? "Sending…" : isCheck ? "Send me 3 fixes" : "Send"}
         </button>
-        <p className="text-sm text-on-ink-muted">
+        <p className="text-sm text-muted">
           {isCheck ? "Free. No sales call. Reply within 24 hours." : "Reply within 24 hours with questions or a quote."}
         </p>
       </div>
@@ -359,7 +359,7 @@ function Field({
     <div className={className}>
       <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-semibold">
         {label}
-        {optional ? <span className="font-medium text-on-ink-muted"> (optional)</span> : null}
+        {optional ? <span className="font-medium text-muted"> (optional)</span> : null}
       </label>
       {children}
     </div>

@@ -140,7 +140,7 @@ export function Estimator() {
       <div className="space-y-9 lg:col-span-7">
         <fieldset>
           <legend className="mb-4 text-lg font-semibold">
-            <span className="mr-2 text-brand">1</span>What do you need?
+            <span className="mr-2 text-orange">1</span>What do you need?
           </legend>
           <div className="grid grid-cols-2 gap-2 xl:grid-cols-3">
             {estimatorServices.map((s) => {
@@ -148,8 +148,8 @@ export function Estimator() {
               return (
                 <label
                   key={s.id}
-                  className={`relative flex cursor-pointer flex-col rounded-md border p-3 pr-6 transition-colors sm:p-3.5 sm:pr-7 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand ${
-                    active ? "border-brand bg-brand/10" : "border-ink-line hover:border-[#3a4664]"
+                  className={`relative flex cursor-pointer flex-col rounded-2xl border p-3 pr-6 transition-colors sm:p-3.5 sm:pr-7 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-violet-soft ${
+                    active ? "grad-border shadow-[0_10px_30px_-18px_rgba(192,75,216,0.8)]" : "border-line bg-surface hover:border-line-strong"
                   }`}
                 >
                   <input
@@ -161,9 +161,9 @@ export function Estimator() {
                     className="sr-only"
                   />
                   <span className="leading-snug font-semibold">{s.label}</span>
-                  <span className="mt-0.5 hidden text-sm text-on-ink-muted sm:block">{s.short}</span>
+                  <span className="mt-0.5 hidden text-sm text-muted sm:block">{s.short}</span>
                   {active ? (
-                    <span aria-hidden="true" className="absolute top-3 right-3 h-2 w-2 rounded-full bg-brand" />
+                    <span aria-hidden="true" className="absolute top-3 right-3 h-2 w-2 rounded-full bg-orange" />
                   ) : null}
                 </label>
               );
@@ -173,11 +173,11 @@ export function Estimator() {
 
         <div className="space-y-7">
           <p className="text-lg font-semibold">
-            <span className="mr-2 text-brand">2</span>A few details
+            <span className="mr-2 text-orange">2</span>A few details
           </p>
           {service.questions.map((q) => (
             <fieldset key={`${service.id}-${q.id}`}>
-              <legend className="mb-2.5 text-sm font-semibold text-on-ink-muted">
+              <legend className="mb-2.5 text-sm font-semibold text-muted">
                 {q.label}
                 {q.type === "multi" ? <span className="font-medium"> (pick any)</span> : null}
               </legend>
@@ -203,7 +203,7 @@ export function Estimator() {
 
         <fieldset>
           <legend className="mb-2.5 text-lg font-semibold">
-            <span className="mr-2 text-brand">3</span>How soon?
+            <span className="mr-2 text-orange">3</span>How soon?
           </legend>
           <div className="flex flex-wrap gap-2">
             {urgencyOptions.map((u) => (
@@ -221,23 +221,23 @@ export function Estimator() {
 
         {/* Mobile/tablet: keep the running total in view while picking options. */}
         <div aria-hidden="true" data-estimate-bar className="sticky bottom-3 z-10 lg:hidden">
-          <div className="flex items-center justify-between gap-3 rounded-md border border-brand/40 bg-ink-2 px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
-            <span className="text-sm text-on-ink-muted">Estimate</span>
+          <div className="grad-border flex items-center justify-between gap-3 rounded-2xl px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
+            <span className="text-sm text-muted">Estimate</span>
             <span className="text-right">
               <span className="block font-semibold tabular-nums">
                 {money(shownMin)}–{money(shownMax)}
-                {result.monthly ? <span className="text-brand"> + {usd(result.monthly)}/mo</span> : null}
+                {result.monthly ? <span className="text-orange"> + {usd(result.monthly)}/mo</span> : null}
               </span>
-              <span className="block text-xs text-on-ink-muted">About {timeline}</span>
+              <span className="block text-xs text-muted">About {timeline}</span>
             </span>
           </div>
         </div>
       </div>
 
       <div className="lg:col-span-5">
-        <div className="rounded-xl border border-ink-line bg-ink-2 p-6 sm:p-7 lg:sticky lg:top-24">
-          <p className="eyebrow text-on-ink-muted">Your estimate</p>
-          <p className="mt-1 text-sm text-on-ink-muted">{service.label}</p>
+        <div className="card glass p-6 sm:p-7 lg:sticky lg:top-24">
+          <p className="eyebrow">Your estimate</p>
+          <p className="mt-1 text-sm text-muted">{service.label}</p>
           <output aria-live="polite" className="mt-4 block">
             <span className="sr-only">
               Estimate {usd(result.min)} to {usd(result.max)}.
@@ -249,29 +249,29 @@ export function Estimator() {
               {money(shownMin)}–{money(shownMax)}
             </span>
             {result.monthly ? (
-              <span className="mt-2 block font-semibold text-brand">+ {usd(result.monthly)}/month care plan</span>
+              <span className="mt-2 block font-semibold text-orange">+ {usd(result.monthly)}/month care plan</span>
             ) : null}
-            <span className="mt-3 block text-on-ink-muted">
+            <span className="mt-3 block text-muted">
               About <strong className="font-semibold text-white">{timeline}</strong>
               {result.urgency.id !== "standard" ? " (subject to availability)" : ""}
             </span>
           </output>
 
           {launchOffer.enabled ? (
-            <p className="mt-5 flex items-start gap-2 rounded-md border border-brand/40 bg-brand/10 px-3 py-2.5 text-sm font-semibold text-white">
-              <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+            <p className="mt-5 flex items-start gap-2 rounded-2xl border border-line bg-white/[0.04] px-3 py-2.5 text-sm font-medium text-fg">
+              <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
               <span>
-                {launchOffer.text} <span className="font-medium text-on-ink-muted">Taken off your final quote.</span>
+                {launchOffer.text} <span className="font-medium text-muted">Taken off your final quote.</span>
               </span>
             </p>
           ) : null}
 
-          {service.note ? <p className="mt-5 border-t border-ink-line pt-4 text-sm text-on-ink-muted">{service.note}</p> : null}
+          {service.note ? <p className="mt-5 border-t border-line pt-4 text-sm text-muted">{service.note}</p> : null}
 
           <button type="button" onClick={sendEstimate} className="btn btn-brand mt-6 w-full">
             Send me this estimate
           </button>
-          <p className="mt-3 text-sm leading-relaxed text-on-ink-muted">
+          <p className="mt-3 text-sm leading-relaxed text-muted">
             This is a range, not a quote. Send it over with a few details and you’ll get a fixed price within 24
             hours.
           </p>
@@ -296,8 +296,8 @@ function Chip({
 }) {
   return (
     <label
-      className={`inline-flex min-h-11 cursor-pointer flex-col justify-center rounded-md border px-3.5 py-2 text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand ${
-        checked ? "border-white bg-white text-ink" : "border-ink-line text-white hover:border-[#3a4664]"
+      className={`inline-flex min-h-11 cursor-pointer flex-col justify-center rounded-full border px-4 py-2 text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-violet-soft ${
+        checked ? "grad-border text-fg" : "border-line bg-surface text-muted hover:border-line-strong hover:text-fg"
       }`}
     >
       <input type={type} name={name} value={option.id} checked={checked} onChange={onChange} className="sr-only" />
@@ -310,7 +310,7 @@ function Chip({
         {option.label}
       </span>
       {option.hint ? (
-        <span className={`text-xs ${checked ? "text-muted" : "text-on-ink-muted"}`}>{option.hint}</span>
+        <span className="text-xs text-subtle">{option.hint}</span>
       ) : null}
     </label>
   );

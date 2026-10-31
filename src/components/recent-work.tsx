@@ -46,11 +46,11 @@ export function RecentWork() {
         </div>
         <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <li key={p.title} className="overflow-hidden rounded-lg border border-line bg-white" data-reveal>
-              <div className="relative aspect-[16/10] border-b border-line bg-paper-2">
+            <li key={p.title} className="overflow-hidden rounded-lg border border-line bg-surface" data-reveal>
+              <div className="relative aspect-[16/10] border-b border-line bg-surface">
                 <Image src={p.image} alt={`Screenshot of ${p.title}`} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover object-top" />
                 {p.concept ? (
-                  <span className="absolute top-3 left-3 rounded bg-ink px-2 py-1 text-xs font-semibold text-white">
+                  <span className="absolute top-3 left-3 rounded bg-surface-strong px-2 py-1 text-xs font-semibold text-white">
                     Concept project
                   </span>
                 ) : null}

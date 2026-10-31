@@ -19,7 +19,7 @@ export function SectionHeader({
   action?: ReactNode;
   className?: string;
 }) {
-  const muted = tone === "dark" ? "text-on-ink-muted" : "text-muted";
+  const muted = tone === "dark" ? "text-muted" : "text-muted";
   const center = align === "center";
   return (
     <div
@@ -27,7 +27,7 @@ export function SectionHeader({
       data-reveal
     >
       <div className={center ? "max-w-2xl" : "max-w-3xl"}>
-        <p className={`eyebrow ${tone === "dark" ? "text-brand" : "text-brand-ink"}`}>{label}</p>
+        <p className={`eyebrow ${tone === "dark" ? "text-orange" : "text-orange"}`}>{label}</p>
         <h2 id={id} className="t-h2 mt-4">
           {title}
         </h2>

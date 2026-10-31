@@ -1,6 +1,8 @@
 # Launchwell Studio website
 
-Next.js 16 (App Router, TypeScript, Tailwind v4). Pages: `/`, `/agencies`, `/pakistan`.
+Next.js 16 (App Router, TypeScript, Tailwind v4).
+
+Pages: `/`, `/about`, `/pakistan`, `/fixes` + 5 fix guides (`/fixes/[slug]`), and service pages `/woocommerce-developer`, `/wordpress-website-fixes`, `/shopify-store-setup`, `/website-speed-optimization`, `/ai-chatbot-for-website`, `/white-label-web-development` (`/agencies` redirects here). Also `/llms.txt`, `/llms-full.txt`, `/sitemap.xml`, `/robots.txt`.
 
 ```bash
 npm install
@@ -16,7 +18,11 @@ npm run build
 | All prices (service cards, FAQ, estimator, PKR packages) | `src/config/pricing.ts` |
 | Email, WhatsApp, socials, Fiverr, founder photo, real stats | `src/config/site.ts` |
 | Fiverr reviews (word for word only) | `src/content/reviews.ts` |
-| Service cards | `src/content/services.ts` |
+| Service cards (home) | `src/content/services.ts` |
+| Service landing pages (copy, FAQ, related links) | `src/content/service-pages.ts` |
+| Fix guides (`/fixes/...`) | `src/content/fix-guides.ts` |
+| Founder photo | drop `public/founder.jpg` and redeploy (MF tile until then) |
+| Hero concept screenshots | `public/concepts/concept-1.jpg` … `concept-3.jpg` (CSS previews until then) |
 | WooCommerce problems list | `src/content/woo-problems.ts` |
 | FAQ | `src/content/faq.ts` |
 | "Recent work" strip (off) | `src/components/recent-work.tsx` |
@@ -44,11 +50,12 @@ See `.env.example`. All are optional; the site works without any of them.
 | `CONTACT_TO_EMAIL` | Where submissions go. Default `studiolaunchwell@gmail.com`. |
 | `NEXT_PUBLIC_GA_ID` | GA4 measurement ID (`G-…`). Off when empty. |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID. Off when empty. |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL. Set this when you add a custom domain. |
+| `NEXT_PUBLIC_CALENDLY_URL` | "Book a 15-min call" buttons. Hidden when empty. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL. Defaults to https://launchwell-studio.vercel.app; set it only when you add a custom domain. |
 
 `NEXT_PUBLIC_*` values are baked in at build time, so redeploy after changing them.
 
 ## Lead events
 
 Sent as `generate_lead` in GA4 and `Lead` in Meta Pixel, with a source:
-`free_check_form`, `project_form`, `whatsapp`, `email`, `estimator` (on "Send me this estimate").
+`free_check_form`, `project_form`, `whatsapp`, `email`, `call` (Calendly), `estimator` (on "Send me this estimate").

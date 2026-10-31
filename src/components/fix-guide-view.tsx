@@ -76,31 +76,31 @@ export function FixGuideView({ guide }: { guide: FixGuide }) {
             <ol className="mt-6 space-y-5">
               {guide.steps.map((s, i) => (
                 <li key={s.name} className="flex gap-4">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-sm font-semibold text-white">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-surface-strong text-sm font-semibold text-white">
                     {i + 1}
                   </span>
                   <div className="pt-0.5">
                     <h3 className="font-semibold">{s.name}</h3>
-                    <p className="mt-1 leading-relaxed text-ink/80">{s.text}</p>
+                    <p className="mt-1 leading-relaxed text-fg/80">{s.text}</p>
                   </div>
                 </li>
               ))}
             </ol>
           </section>
 
-          <section aria-labelledby="hire" className="card bg-paper-2 p-6 sm:p-8" data-reveal>
+          <section aria-labelledby="hire" className="card bg-surface p-6 sm:p-8" data-reveal>
             <h2 id="hire" className="t-h3 t-h3-lg">
               When should you hire help?
             </h2>
             <ul className="mt-4 space-y-2.5">
               {guide.whenToHire.map((t) => (
                 <li key={t} className="flex gap-3">
-                  <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-ink" />
-                  <span className="text-ink/85">{t}</span>
+                  <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
+                  <span className="text-fg/85">{t}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-5 text-ink/85">
+            <p className="mt-5 text-fg/85">
               We fix this kind of problem regularly. {fixPrice}, with a fixed price agreed before we start, usually within
               1–2 days.
             </p>

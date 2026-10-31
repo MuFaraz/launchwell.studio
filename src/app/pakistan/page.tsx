@@ -61,7 +61,7 @@ export default function PakistanPage() {
             id="pk-title"
             className="t-h1 mt-6 max-w-4xl"
           >
-            Apna business online laayen. <span className="mark">Sahi tareeqay se.</span>
+            Apna business online laayen. Sahi <span className="accent">tareeqay</span> se.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
             Websites, online stores and AI chatbots for Pakistani businesses. Fixed price in PKR, baat WhatsApp par,
@@ -98,26 +98,26 @@ export default function PakistanPage() {
             title="Teen packages. Clear prices."
             intro="Starting prices. Your exact price depends on pages, products and features, and you get it in writing before we start."
           />
-          <ul className="mt-14 grid gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-3">
+          <ul className="mt-14 grid gap-4 lg:grid-cols-3">
             {pkrPackages.map((p, i) => (
               <li
                 key={p.name}
-                className={`flex flex-col p-6 sm:p-8 ${i === 1 ? "bg-ink text-white" : "bg-white"}`}
+                className={`card card-lift flex flex-col p-6 sm:p-8 ${i === 1 ? "grad-border" : ""}`}
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
               >
                 <h3 className="t-h3">{p.name}</h3>
                 <p className="mt-5">
-                  <span className={`text-sm font-semibold ${i === 1 ? "text-on-ink-muted" : "text-muted"}`}>from </span>
+                  <span className={`text-sm font-semibold ${i === 1 ? "text-muted" : "text-muted"}`}>from </span>
                   <span className="text-4xl font-semibold tracking-tight tabular-nums">{pkr(p.price)}</span>
                 </p>
-                <p className={`mt-1 text-sm font-semibold ${i === 1 ? "text-brand" : "text-brand-ink"}`}>{p.time}</p>
+                <p className={`mt-1 text-sm font-semibold ${i === 1 ? "text-orange" : "text-orange"}`}>{p.time}</p>
                 <ul className="mt-6 flex-1 space-y-3">
                   {p.includes.map((item) => (
                     <li key={item} className="flex gap-3 leading-snug">
                       <span
                         aria-hidden="true"
-                        className={`mt-[0.55em] h-px w-3 shrink-0 ${i === 1 ? "bg-brand" : "bg-brand-ink"}`}
+                        className={`mt-[0.55em] h-px w-3 shrink-0 ${i === 1 ? "bg-orange" : "bg-orange"}`}
                       />
                       {item}
                     </li>
@@ -128,7 +128,7 @@ export default function PakistanPage() {
                   href={whatsappUrl(`Assalam o Alaikum, mujhe "${p.name}" package ke baare mein baat karni hai.`)}
                   target="_blank"
                   rel="noopener"
-                  className={`btn mt-8 ${i === 1 ? "btn-brand" : "btn-primary"}`}
+                  className={`btn mt-8 ${i === 1 ? "btn-primary" : "btn-secondary"}`}
                 >
                   WhatsApp: {p.name}
                 </TrackedLink>
@@ -141,13 +141,13 @@ export default function PakistanPage() {
         </div>
       </section>
 
-      <section aria-labelledby="pk-steps-title" className="border-t border-line bg-paper-2 py-20 md:py-28">
+      <section aria-labelledby="pk-steps-title" className="border-t border-line bg-surface py-20 md:py-28">
         <div className="container-x">
           <SectionHeader label="Kaise kaam hota hai" id="pk-steps-title" title="Chaar simple steps." />
           <ol className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
-              <li key={s.title} className="border-t-2 border-ink pt-5" data-reveal style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}>
-                <p className="font-mono text-sm text-brand-ink">{String(i + 1).padStart(2, "0")}</p>
+              <li key={s.title} className="border-t-2 border-line-strong pt-5" data-reveal style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}>
+                <p className="font-mono text-sm text-orange">{String(i + 1).padStart(2, "0")}</p>
                 <h3 className="t-h3 mt-3">{s.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
               </li>
@@ -167,13 +167,13 @@ export default function PakistanPage() {
         </div>
       </section>
 
-      <section aria-labelledby="pk-contact-title" className="on-ink bg-ink py-20 text-on-ink md:py-28">
+      <section aria-labelledby="pk-contact-title" className="bg-surface-strong py-20 text-fg md:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5" data-reveal>
             <h2 id="pk-contact-title" className="t-h2">
               Shuru karein? Ek message kaafi hai.
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-on-ink-muted">
+            <p className="mt-6 text-lg leading-relaxed text-muted">
               WhatsApp is the fastest way to reach us. Prefer email? Use the form and we’ll reply within 24 hours.
             </p>
             <TrackedLink

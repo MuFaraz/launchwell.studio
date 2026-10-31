@@ -113,7 +113,7 @@ export default function WhiteLabelPage() {
           <dl className="rounded-xl border border-white/12 bg-white/[0.04]">
             {glance.map(([k, v]) => (
               <div key={k} className="grid grid-cols-3 gap-4 border-b border-white/10 px-5 py-4 last:border-b-0">
-                <dt className="text-sm text-on-ink-muted">{k}</dt>
+                <dt className="text-sm text-muted">{k}</dt>
                 <dd className="col-span-2 font-medium">{v}</dd>
               </div>
             ))}
@@ -140,14 +140,14 @@ export default function WhiteLabelPage() {
         </div>
       </section>
 
-      <section aria-labelledby="how-title" className="border-y border-line bg-paper-2 py-20 md:py-28">
+      <section aria-labelledby="how-title" className="border-y border-line bg-surface py-20 md:py-28">
         <div className="container-x">
           <SectionHeader label="How we work with you" id="how-title" title="Invisible to your client. Easy for your team." />
           <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {principles.map((p, i) => (
               <li
                 key={p.title}
-                className="border-t-2 border-ink pt-5"
+                className="border-t-2 border-line-strong pt-5"
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
               >
@@ -195,9 +195,9 @@ export default function WhiteLabelPage() {
                   For full builds. Send the brief or Figma and get a fixed quote within 24 hours.
                 </p>
               </div>
-              <div className="ink-texture rounded-[14px] p-6 text-white sm:col-span-2">
+              <div className="grad-border rounded-[20px] p-6 sm:col-span-2">
                 <p className="text-xl font-semibold">Start with one small paid test task at half rate.</p>
-                <p className="mt-2 text-on-ink-muted">
+                <p className="mt-2 text-muted">
                   See the code, the communication and the turnaround before you commit to anything bigger.
                 </p>
               </div>
@@ -226,15 +226,16 @@ export default function WhiteLabelPage() {
         </div>
       </section>
 
-      <section id="start" aria-labelledby="start-title" className="on-ink ink-texture relative scroll-mt-16 overflow-hidden py-20 text-on-ink md:py-28">
-        <div aria-hidden="true" className="glow -top-40 -left-40 h-[36rem] w-[36rem] opacity-70" />
+      <section id="start" aria-labelledby="start-title" className="relative scroll-mt-16 overflow-hidden border-t border-line py-20 md:py-28">
+        <div aria-hidden="true" className="bg-grid" />
+        <div aria-hidden="true" className="glow top-1/2 left-1/2 h-[48rem] w-[60rem] -translate-x-1/2 -translate-y-1/2" />
         <div className="container-x relative grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5" data-reveal>
-            <p className="eyebrow text-brand">Get started</p>
+            <p className="eyebrow text-orange">Get started</p>
             <h2 id="start-title" className="t-h2 mt-4">
               Tell us about the first task.
             </h2>
-            <p className="t-lead mt-5 text-on-ink-muted">
+            <p className="t-lead mt-5 text-muted">
               A link to the site or design, what needs doing and when. You’ll get a price and a date within 24 hours.
               The first one is at half rate.
             </p>
@@ -245,7 +246,7 @@ export default function WhiteLabelPage() {
               </TrackedLink>
               <CallButton />
             </div>
-            <p className="mt-6 text-sm text-on-ink-muted">
+            <p className="mt-6 text-sm text-muted">
               Or email{" "}
               <TrackedLink lead="email" href={`mailto:${site.email}?subject=White-label%20enquiry`} className="link">
                 {site.email}

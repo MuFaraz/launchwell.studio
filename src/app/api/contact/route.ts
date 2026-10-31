@@ -98,12 +98,12 @@ export async function POST(request: Request) {
     estimate ? `\n---\n${estimate}` : "",
   ].join("\n");
 
-  const html = `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.5;color:#0B1020">
+  const html = `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.5;color:#0E0A16">
 <table cellpadding="4" style="border-collapse:collapse">${rows
     .map(([k, v]) => `<tr><td style="color:#555c6b;padding-right:16px">${k}</td><td><strong>${escapeHtml(v)}</strong></td></tr>`)
     .join("")}</table>
 <p style="white-space:pre-wrap;margin-top:20px">${escapeHtml(message || "(no message)")}</p>
-${estimate ? `<pre style="white-space:pre-wrap;font-family:inherit;background:#f2f2ec;padding:12px;border-radius:6px">${escapeHtml(estimate)}</pre>` : ""}
+${estimate ? `<pre style="white-space:pre-wrap;font-family:inherit;background:#f3f0f8;padding:12px;border-radius:6px">${escapeHtml(estimate)}</pre>` : ""}
 </div>`;
 
   try {

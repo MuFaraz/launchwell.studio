@@ -18,22 +18,23 @@ export function CheckSection() {
     <section
       id="check"
       aria-labelledby="check-title"
-      className="on-ink ink-texture relative scroll-mt-16 overflow-hidden py-20 text-on-ink md:py-28"
+      className="relative scroll-mt-16 overflow-hidden border-t border-line py-20 md:py-28"
     >
-      <div aria-hidden="true" className="glow -top-40 -left-40 h-[36rem] w-[36rem] opacity-70" />
+      <div aria-hidden="true" className="bg-grid [mask-image:radial-gradient(circle_at_70%_50%,#000,transparent_70%)]" />
+      <div aria-hidden="true" className="glow top-1/2 left-1/2 h-[48rem] w-[60rem] -translate-x-1/2 -translate-y-1/2" />
       <div className="container-x relative grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-5" data-reveal>
-          <p className="eyebrow text-brand">Free website check</p>
+          <p className="eyebrow">Free website check</p>
           <h2 id="check-title" className="t-h2 mt-4">
-            Send us your site. Get 3 practical fixes within 24 hours.
+            Send us your site. Get 3 practical <span className="accent">fixes</span> within 24 hours.
           </h2>
-          <p className="t-lead mt-5 text-on-ink-muted">
+          <p className="t-lead mt-5 text-muted">
             A real person looks at it, not a scanner. If a fix takes ten minutes, we’ll tell you how to do it yourself.
           </p>
           <ul className="mt-8 space-y-3">
             {looksAt.map((item) => (
               <li key={item} className="flex gap-3">
-                <IconCheck className="mt-1 shrink-0 text-brand" />
+                <IconCheck className="mt-1 shrink-0 text-orange" />
                 <span>{item}</span>
               </li>
             ))}

@@ -80,11 +80,11 @@ export default function AboutPage() {
       <section aria-labelledby="story-title" className="py-20 md:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7" data-reveal>
-            <p className="eyebrow text-brand-ink">Experience</p>
+            <p className="eyebrow text-orange">Experience</p>
             <h2 id="story-title" className="t-h2 mt-4">
               Six years of building and fixing real websites.
             </h2>
-            <div className="t-lead mt-6 space-y-5 text-ink/85">
+            <div className="t-lead mt-6 space-y-5 text-fg/85">
               <p>
                 I’m {site.founder}. I’ve been building websites and web apps for over six years, mostly WordPress and
                 WooCommerce, plus Shopify, Laravel, NestJS and Next.js. More than 20 projects I’ve worked on are live
@@ -118,7 +118,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="stack-title" className="border-y border-line bg-paper-2 py-20 md:py-28">
+      <section aria-labelledby="stack-title" className="border-y border-line bg-surface py-20 md:py-28">
         <div className="container-x">
           <SectionHeader label="Stack" id="stack-title" title="What I build with." />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 <h3 className="font-semibold">{s.group}</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {s.items.map((i) => (
-                    <li key={i} className="rounded-full border border-line bg-paper px-3 py-1 text-sm">
+                    <li key={i} className="rounded-full border border-line bg-bg px-3 py-1 text-sm">
                       {i}
                     </li>
                   ))}
@@ -144,7 +144,7 @@ export default function AboutPage() {
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {principles.map((p, i) => (
               <li key={p.title} className="card p-6" data-reveal style={{ ["--reveal-delay" as string]: `${(i % 3) * 70}ms` }}>
-                <IconCheck className="text-brand-ink" />
+                <IconCheck className="text-orange" />
                 <h3 className="t-h3 mt-4">{p.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{p.body}</p>
               </li>
@@ -153,15 +153,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="contact-title" className="on-ink ink-texture relative overflow-hidden py-20 text-white md:py-24">
-        <div aria-hidden="true" className="glow -right-40 -bottom-40 h-[32rem] w-[32rem] opacity-70" />
+      <section aria-labelledby="contact-title" className="relative overflow-hidden border-t border-line py-20 md:py-24">
+        <div aria-hidden="true" className="bg-grid" />
+        <div aria-hidden="true" className="glow -right-40 -bottom-56 h-[36rem] w-[36rem]" />
         <div className="container-x relative grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7" data-reveal>
-            <p className="eyebrow text-brand">Contact</p>
+            <p className="eyebrow text-orange">Contact</p>
             <h2 id="contact-title" className="t-h2 mt-4">
               Where to find me.
             </h2>
-            <Nap className="mt-6 text-on-ink-muted" />
+            <Nap className="mt-6 text-muted" />
             <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
               {[
                 ["Fiverr", site.fiverr],

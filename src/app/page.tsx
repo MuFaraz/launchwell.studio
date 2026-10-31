@@ -5,8 +5,8 @@ import { CheckSection } from "@/components/check-section";
 import { Estimator } from "@/components/estimator";
 import { FaqList } from "@/components/faq-list";
 import { FounderPhoto } from "@/components/founder-photo";
-import { HeroShowcase } from "@/components/hero-showcase";
-import { IconArrow, IconClock, IconShield, IconTag } from "@/components/icons";
+import { HeroChat } from "@/components/hero-chat";
+import { IconArrow, IconCheck } from "@/components/icons";
 import { JsonLd, faqJsonLd } from "@/components/json-ld";
 import { RecentWork } from "@/components/recent-work";
 import { FiverrBadge, Reviews } from "@/components/reviews";
@@ -36,13 +36,17 @@ const art: Record<ServiceArt, () => React.ReactElement> = {
   board: BoardArt,
 };
 
-const headline = ["Websites", "and", "online", "stores", "that", "work", "properly."];
-
-const trust = [
-  { Icon: IconTag, text: "Fixed price before we start" },
-  { Icon: IconClock, text: "Reply within 24 hours" },
-  { Icon: IconShield, text: "30-day free bug fixes" },
+// Hero headline, word by word (the accent word is rendered in serif italic with the brand gradient).
+const headline: { w: string; accent?: boolean }[] = [
+  { w: "Websites" },
+  { w: "&" },
+  { w: "stores" },
+  { w: "that" },
+  { w: "actually", accent: true },
+  { w: "work." },
 ];
+
+const trust = ["Fixed price", "Reply in 24h", "30-day bug fixes"];
 
 const steps = [
   { title: "Message us", body: "Email, WhatsApp or the form. Explain it in your own words; no brief template needed." },
@@ -51,64 +55,67 @@ const steps = [
   { title: "Launch & support", body: "We test real orders and forms on the live site. Bugs in our work are fixed free for 30 days." },
 ];
 
+const A = ({ children }: { children: React.ReactNode }) => <span className="accent">{children}</span>;
+
 export default function Home() {
   return (
     <>
       <JsonLd data={faqJsonLd(faqs)} />
 
       {/* ── Hero ───────────────────────────────────────────── */}
-      <section aria-labelledby="hero-title" className="on-ink ink-texture relative overflow-hidden text-white">
-        <div aria-hidden="true" className="glow top-[-10%] right-[-15%] h-[42rem] w-[42rem] lg:right-[-8%]" />
-        <div className="container-x relative grid items-center gap-14 pt-14 pb-20 md:pt-20 lg:grid-cols-12 lg:gap-12 lg:pt-24 lg:pb-28">
-          <div className="lg:col-span-6">
-            <p className="eyebrow rise text-on-ink-muted">WordPress · WooCommerce · Shopify · Web apps</p>
+      <section aria-labelledby="hero-title" className="relative overflow-hidden">
+        <div aria-hidden="true" className="bg-grid" />
+        <div aria-hidden="true" className="glow -top-56 -right-40 h-[44rem] w-[44rem]" />
+        <div aria-hidden="true" className="glow glow-soft -bottom-80 -left-52 h-[32rem] w-[32rem]" />
+        <div className="container-x relative grid items-center gap-14 pt-14 pb-20 md:pt-20 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14 lg:pt-24 lg:pb-28">
+          <div>
+            {launchOffer.enabled ? (
+              <p className="rise pill">
+                <span className="pill-chip">NEW</span>
+                {launchOffer.text.replace(/\.$/, "")}
+              </p>
+            ) : null}
             <h1 id="hero-title" className="t-h1 mt-6">
-              {headline.map((w, i) => (
+              {headline.map(({ w, accent }, i) => (
                 <span key={i}>
-                  <span className={`rise rise-word ${i >= 5 ? "text-brand" : ""}`} style={{ ["--i" as string]: i + 1 }}>
+                  <span className={`rise rise-word ${accent ? "accent" : ""}`} style={{ ["--i" as string]: i + 1 }}>
                     {w}
                   </span>{" "}
                 </span>
               ))}
             </h1>
-            <p className="t-lead rise mt-6 max-w-xl text-on-ink-muted" style={{ ["--i" as string]: 8 }}>
-              Built and fixed by a developer who answers. Launchwell is a small studio run by {site.founder}:{" "}
-              {site.stats.years} years, {site.stats.liveProjects} live projects.
+            <p className="t-lead rise mt-6 max-w-[34rem] text-muted md:text-lg" style={{ ["--i" as string]: 8 }}>
+              WordPress, WooCommerce and Shopify, built and fixed by a developer who answers. Run by {site.founder}:{" "}
+              {site.stats.years} years, {site.stats.liveProjects} live projects, a fixed price before any work starts.
             </p>
-            <div className="rise mt-9 flex flex-col gap-3 xs:flex-row" style={{ ["--i" as string]: 9 }}>
-              <Link href="#check" className="btn btn-brand">
-                Get a free website check
+            <div className="rise mt-8 flex flex-col gap-3 xs:flex-row" style={{ ["--i" as string]: 10 }}>
+              <Link href="#check" className="btn btn-primary">
+                Get a free website check <span aria-hidden="true">→</span>
               </Link>
-              <Link href="#estimate" className="btn btn-ghost-ink">
+              <Link href="#estimate" className="btn btn-secondary">
                 Estimate my project
               </Link>
             </div>
-            <ul className="rise mt-8 grid gap-3 text-sm sm:grid-cols-3 sm:gap-4" style={{ ["--i" as string]: 10 }}>
-              {trust.map(({ Icon, text }) => (
-                <li key={text} className="flex items-center gap-2.5 text-on-ink-muted">
-                  <Icon className="shrink-0 text-brand" />
-                  <span>{text}</span>
+            <ul className="rise mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-subtle" style={{ ["--i" as string]: 12 }}>
+              {trust.map((t) => (
+                <li key={t} className="flex items-center gap-1.5">
+                  <IconCheck className="h-4 w-4 text-orange" />
+                  {t}
                 </li>
               ))}
             </ul>
-            <div className="rise mt-8 flex flex-wrap items-center gap-x-4 gap-y-3 text-sm" style={{ ["--i" as string]: 11 }}>
-              {launchOffer.enabled ? (
-                <span className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-brand/10 px-3 py-1.5 font-semibold text-white">
-                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand" />
-                  {launchOffer.text}
-                </span>
-              ) : null}
-              <a href={site.fiverr} target="_blank" rel="noopener" className="link-quiet text-on-ink-muted hover:text-white">
-                <span aria-hidden="true" className="text-[#f2b630]">
+            <p className="rise mt-5 text-sm text-subtle" style={{ ["--i" as string]: 13 }}>
+              <a href={site.fiverr} target="_blank" rel="noopener" className="link-quiet hover:text-fg">
+                <span aria-hidden="true" className="text-orange">
                   ★{" "}
                 </span>
                 {site.stats.fiverrRating} on Fiverr · clients in {site.clientCountries}
               </a>
-            </div>
+            </p>
           </div>
 
-          <div className="lg:col-span-6">
-            <HeroShowcase />
+          <div>
+            <HeroChat />
           </div>
         </div>
       </section>
@@ -121,7 +128,11 @@ export default function Home() {
           <SectionHeader
             id="services-title"
             label="What we do"
-            title="Five things, done properly."
+            title={
+              <>
+                Five things, done <A>properly</A>.
+              </>
+            }
             intro="Most of our work is WordPress and WooCommerce. Every price is a real starting point, and you get a fixed quote before anything starts."
           />
           <ul className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -137,17 +148,19 @@ export default function Home() {
                   <Art />
                   <h3 className="t-h3 mt-6">{s.title}</h3>
                   <p className="mt-2 text-muted">{s.intro}</p>
-                  <ul className={`mt-5 mb-6 space-y-2.5 text-[0.975rem] ${s.featured ? "lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0" : ""}`}>
+                  <ul
+                    className={`mt-5 mb-6 space-y-2.5 text-[0.95rem] ${s.featured ? "lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0" : ""}`}
+                  >
                     {s.deliverables.map((d) => (
-                      <li key={d} className="flex gap-2.5 leading-snug">
-                        <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-brand-ink" />
+                      <li key={d} className="flex gap-2.5 leading-snug text-fg/90">
+                        <IconCheck className="mt-0.5 h-4 w-4 shrink-0 text-orange" />
                         {d}
                       </li>
                     ))}
                   </ul>
                   <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
-                    <p className="text-[0.95rem] font-semibold">{s.price}</p>
-                    <Link href={s.href} className="link inline-flex items-center gap-1.5 text-sm font-semibold">
+                    <p className="text-[0.95rem] font-medium">{s.price}</p>
+                    <Link href={s.href} className="link inline-flex items-center gap-1.5 text-sm font-medium">
                       {s.href.startsWith("/#") ? "Estimate yours" : "Learn more"}
                       <span className="sr-only"> about {s.title}</span>
                     </Link>
@@ -160,12 +173,17 @@ export default function Home() {
       </section>
 
       {/* ── WooCommerce fixes ──────────────────────────────── */}
-      <section id="fixes" aria-labelledby="fixes-title" className="scroll-mt-16 border-y border-line bg-paper-2 py-20 md:py-28">
-        <div className="container-x">
+      <section id="fixes" aria-labelledby="fixes-title" className="relative scroll-mt-16 overflow-hidden border-y border-line py-20 md:py-28">
+        <div aria-hidden="true" className="glow glow-soft top-20 -right-64 h-[30rem] w-[30rem] opacity-60" />
+        <div className="container-x relative">
           <SectionHeader
             id="fixes-title"
             label="WooCommerce fixes"
-            title="Store broken? Here’s what it usually is."
+            title={
+              <>
+                Store broken? Here’s what it <A>usually</A> is.
+              </>
+            }
             intro="Five problems that come up again and again. Pick the one that sounds like yours and see how we fix it."
           />
           <div className="mt-12" data-reveal>
@@ -173,14 +191,16 @@ export default function Home() {
               <WooFixer problems={wooProblems} />
             </Suspense>
           </div>
-          <div className="mt-12 grid items-center gap-10 lg:grid-cols-12">
+          <div className="mt-14 grid items-center gap-10 lg:grid-cols-12">
             <div className="lg:col-span-5" data-reveal>
-              <h3 className="t-h3">Slow store? We measure first.</h3>
-              <p className="mt-3 text-muted">
+              <h3 className="t-h2">
+                Slow store? Let’s make it <A>load</A>.
+              </h3>
+              <p className="mt-4 text-muted">
                 Every speed job starts with a baseline and ends with the same test run again, so you see exactly what
                 changed, on a phone, not just a desktop score.
               </p>
-              <Link href="/website-speed-optimization" className="link mt-5 inline-flex items-center gap-2 font-semibold">
+              <Link href="/website-speed-optimization" className="link mt-5 inline-flex items-center gap-2 font-medium">
                 How website speed optimization works <IconArrow className="h-4 w-4" />
               </Link>
             </div>
@@ -197,7 +217,11 @@ export default function Home() {
           <SectionHeader
             id="reviews-title"
             label="What clients say"
-            title="Rated 5.0 on Fiverr. In their words."
+            title={
+              <>
+                Rated 5.0 on Fiverr. In their own <A>words</A>.
+              </>
+            }
             action={<FiverrBadge />}
           />
           <div className="mt-12">
@@ -212,15 +236,18 @@ export default function Home() {
       <section
         id="estimate"
         aria-labelledby="estimate-title"
-        className="on-ink ink-texture relative scroll-mt-16 overflow-hidden py-20 text-on-ink md:py-28"
+        className="relative scroll-mt-16 overflow-hidden border-y border-line bg-surface py-20 md:py-28"
       >
-        <div aria-hidden="true" className="glow -right-48 -bottom-48 h-[40rem] w-[40rem] opacity-60" />
+        <div aria-hidden="true" className="glow glow-soft -right-48 -bottom-48 h-[36rem] w-[36rem] opacity-70" />
         <div className="container-x relative">
           <SectionHeader
             id="estimate-title"
-            tone="dark"
             label="Project estimator"
-            title="What will it cost? Get a range in 30 seconds."
+            title={
+              <>
+                What will it <A>cost</A>? A range in 30 seconds.
+              </>
+            }
             intro="Pick what you need and a few details. The price updates as you go. No email needed to see it."
           />
           <div className="mt-12">
@@ -234,20 +261,26 @@ export default function Home() {
       {/* ── How we work ────────────────────────────────────── */}
       <section id="process" aria-labelledby="process-title" className="scroll-mt-16 py-20 md:py-28">
         <div className="container-x">
-          <SectionHeader id="process-title" label="How we work" title="Four steps. No surprises." />
+          <SectionHeader
+            id="process-title"
+            label="How we work"
+            title={
+              <>
+                Four steps. No <A>surprises</A>.
+              </>
+            }
+          />
           <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
               <li
                 key={step.title}
-                className="card p-6"
+                className="card card-lift p-6"
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
               >
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-brand/12 text-sm font-semibold text-brand-ink">
-                  {i + 1}
-                </span>
-                <h3 className="t-h3 mt-5">{step.title}</h3>
-                <p className="mt-2 text-[0.975rem] leading-relaxed text-muted">{step.body}</p>
+                <span className="grad-text text-3xl font-semibold tabular-nums">0{i + 1}</span>
+                <h3 className="t-h3 mt-4">{step.title}</h3>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-muted">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -261,11 +294,11 @@ export default function Home() {
             <FounderPhoto className="w-44 sm:w-52 md:w-full md:max-w-64" />
           </div>
           <div className="md:col-span-8 lg:col-start-5" data-reveal>
-            <p className="eyebrow text-brand-ink">About</p>
+            <p className="eyebrow">About</p>
             <h2 id="about-title" className="t-h2 mt-4">
               Hi, I’m {site.founder}.
             </h2>
-            <div className="t-lead mt-5 space-y-4 text-ink/80">
+            <div className="t-lead mt-5 space-y-4 text-muted">
               <p>
                 I’ve been building websites and web apps for over six years, mostly WordPress and WooCommerce, plus
                 Shopify, Laravel and Next.js. More than 20 projects I’ve worked on are live today, for clients in the US,
@@ -276,7 +309,7 @@ export default function Home() {
                 work starts, timelines that hold, and a straight answer within a day.
               </p>
             </div>
-            <Link href="/about" className="link mt-6 inline-flex items-center gap-2 font-semibold">
+            <Link href="/about" className="link mt-6 inline-flex items-center gap-2 font-medium">
               More about me and how the studio works <IconArrow className="h-4 w-4" />
             </Link>
           </div>
@@ -287,7 +320,15 @@ export default function Home() {
       <section id="faq" aria-labelledby="faq-title" className="scroll-mt-16 border-t border-line py-20 md:py-28">
         <div className="container-x grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SectionHeader id="faq-title" label="FAQ" title="Questions people ask before they hire us." />
+            <SectionHeader
+              id="faq-title"
+              label="FAQ"
+              title={
+                <>
+                  Questions people ask <A>before</A> they hire us.
+                </>
+              }
+            />
           </div>
           <div className="lg:col-span-8" data-reveal>
             <FaqList items={faqs} />

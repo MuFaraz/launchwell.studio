@@ -18,7 +18,7 @@ export function BlockView({ block }: { block: Block }) {
     <section className="scroll-mt-24" data-reveal>
       <h2 className="t-h3 t-h3-lg">{block.h}</h2>
       {block.p?.map((t) => (
-        <p key={t} className="mt-4 leading-relaxed text-ink/85">
+        <p key={t} className="mt-4 leading-relaxed text-fg/85">
           {t}
         </p>
       ))}
@@ -26,8 +26,8 @@ export function BlockView({ block }: { block: Block }) {
         <ul className="mt-4 space-y-2.5">
           {block.list.map((t) => (
             <li key={t} className="flex gap-3">
-              <IconCheck className="mt-1 h-[1.1rem] w-[1.1rem] shrink-0 text-brand-ink" />
-              <span className="text-ink/85">{t}</span>
+              <IconCheck className="mt-1 h-[1.1rem] w-[1.1rem] shrink-0 text-orange" />
+              <span className="text-fg/85">{t}</span>
             </li>
           ))}
         </ul>
@@ -36,10 +36,10 @@ export function BlockView({ block }: { block: Block }) {
         <ol className="mt-5 space-y-3">
           {block.steps.map((t, i) => (
             <li key={t} className="flex gap-4">
-              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand/12 text-sm font-semibold text-brand-ink">
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-violet/12 text-sm font-semibold text-orange">
                 {i + 1}
               </span>
-              <span className="pt-0.5 text-ink/85">{t}</span>
+              <span className="pt-0.5 text-fg/85">{t}</span>
             </li>
           ))}
         </ol>
@@ -88,17 +88,17 @@ export function ServicePageView({ page }: { page: ServicePage }) {
         }
         aside={
           <div className="rounded-xl border border-white/12 bg-white/[0.04] p-6">
-            <p className="eyebrow text-on-ink-muted">What’s included</p>
+            <p className="eyebrow text-muted">What’s included</p>
             <ul className="mt-4 space-y-2.5">
               {page.includes.map((t) => (
                 <li key={t} className="flex gap-3 text-[0.975rem]">
-                  <IconCheck className="mt-0.5 h-[1.1rem] w-[1.1rem] shrink-0 text-brand" />
+                  <IconCheck className="mt-0.5 h-[1.1rem] w-[1.1rem] shrink-0 text-orange" />
                   {t}
                 </li>
               ))}
             </ul>
             <p className="mt-6 border-t border-white/10 pt-5 font-semibold">{page.price.label}</p>
-            {launchOffer.enabled ? <p className="mt-1 text-sm text-on-ink-muted">{launchOffer.text}</p> : null}
+            {launchOffer.enabled ? <p className="mt-1 text-sm text-muted">{launchOffer.text}</p> : null}
           </div>
         }
       />

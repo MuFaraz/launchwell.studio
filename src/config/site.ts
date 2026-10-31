@@ -4,7 +4,7 @@
 export const site = {
   name: "Launchwell Studio",
   shortName: "Launchwell",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://launchwell.vercel.app").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://launchwell-studio.vercel.app").replace(/\/$/, ""),
   description:
     "WordPress, WooCommerce and Shopify websites built and fixed properly, plus custom web apps and AI chatbots. Fixed price before we start. Replies within 24 hours.",
 

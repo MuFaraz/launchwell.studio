@@ -10,7 +10,7 @@ export function FaqList({ items }: { items: Faq[] }) {
             {item.q}
             <span
               aria-hidden="true"
-              className="relative h-4 w-4 shrink-0 before:absolute before:top-1/2 before:left-0 before:h-0.5 before:w-4 before:-translate-y-1/2 before:bg-ink after:absolute after:top-0 after:left-1/2 after:h-4 after:w-0.5 after:-translate-x-1/2 after:bg-ink after:transition-transform group-open:after:scale-y-0"
+              className="relative h-4 w-4 shrink-0 before:absolute before:top-1/2 before:left-0 before:h-0.5 before:w-4 before:-translate-y-1/2 before:bg-fg after:absolute after:top-0 after:left-1/2 after:h-4 after:w-0.5 after:-translate-x-1/2 after:bg-fg after:transition-transform group-open:after:scale-y-0"
             />
           </summary>
           <p className="max-w-3xl pb-6 leading-relaxed text-muted">{item.a}</p>

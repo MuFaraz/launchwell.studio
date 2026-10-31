@@ -68,7 +68,7 @@ export function WhatsAppFloat() {
       // `bottom` (the lift) changes instantly so the button never slides over the
       // price bar; only the entrance (opacity/transform) is animated.
       style={{ bottom: EDGE + lift, transform: shown ? "none" : "translateY(12px)" }}
-      className={`fixed right-4 z-30 inline-flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#25D366] px-0 font-bold md:px-5 text-[#0B1020] shadow-[0_6px_20px_-6px_rgba(11,16,32,0.45)] transition-[opacity,transform,visibility,background-color] duration-300 ease-out hover:bg-[#1fbe5b] focus-visible:shadow-[0_0_0_2px_#fff,0_6px_20px_-6px_rgba(11,16,32,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f5fd1] sm:right-6 ${
+      className={`fixed right-4 z-30 inline-flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#25D366] px-0 font-bold md:px-5 text-[#0E0A16] shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,transform,visibility,background-color] duration-300 ease-out hover:bg-[#1fbe5b] focus-visible:shadow-[0_0_0_2px_#fff,0_6px_20px_-6px_rgba(0,0,0,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-soft sm:right-6 ${
         shown ? "visible opacity-100" : "invisible opacity-0"
       }`}
     >

@@ -11,7 +11,7 @@ export function RelatedLinks({ title = "Related", links }: { title?: string; lin
           <li key={l.href}>
             <Link href={l.href} className="group flex items-center justify-between gap-4 py-3 font-medium">
               <span className="link-quiet">{l.label}</span>
-              <IconArrow className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-ink" />
+              <IconArrow className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-fg" />
             </Link>
           </li>
         ))}

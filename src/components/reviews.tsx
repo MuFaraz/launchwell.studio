@@ -16,13 +16,13 @@ export function FiverrBadge() {
         <path d={siFiverr.path} fill={`#${siFiverr.hex}`} />
       </svg>
       <span className="leading-tight">
-        <span className="flex items-center gap-1 font-semibold">
-          <span aria-hidden="true" className="text-[#e8a317]">
+        <span className="flex items-center gap-1.5 font-semibold">
+          <span aria-hidden="true" className="text-orange">
             ★★★★★
           </span>
           {site.stats.fiverrRating}
         </span>
-        <span className="text-sm text-muted">{site.stats.fiverrReviews} reviews on Fiverr</span>
+        <span className="text-sm text-muted">{site.stats.fiverrReviews} reviews · Fiverr</span>
       </span>
     </a>
   );
@@ -54,6 +54,9 @@ function ReviewCard({ review, lead }: { review: Review; lead: boolean }) {
       }`}
     >
       <blockquote>
+        <span aria-hidden="true" className="accent block h-12 text-[5.5rem] leading-[0.9] lg:h-14 lg:text-[6.5rem]">
+          “
+        </span>
         <p
           className={
             lead
@@ -63,7 +66,7 @@ function ReviewCard({ review, lead }: { review: Review; lead: boolean }) {
                 : "leading-relaxed"
           }
         >
-          “{review.quote}”
+          {review.quote}
           {review.translation ? (
             <span className="mt-1 block text-base font-normal text-muted">({review.translation})</span>
           ) : null}
@@ -72,7 +75,7 @@ function ReviewCard({ review, lead }: { review: Review; lead: boolean }) {
       <figcaption className="mt-6 flex items-center gap-3 text-sm">
         <span
           aria-hidden="true"
-          className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-paper-2 text-xs font-semibold text-muted uppercase"
+          className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-surface text-xs font-semibold text-muted uppercase"
         >
           {review.name.slice(0, 2)}
         </span>

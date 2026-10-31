@@ -53,7 +53,7 @@ export function MobileNav({ items, cta }: { items: NavItem[]; cta: NavItem }) {
       <div
         id={panelId}
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-white/10 bg-ink shadow-[0_16px_32px_-16px_rgba(0,0,0,0.6)]"
+        className="absolute inset-x-0 top-full border-b border-white/10 bg-surface-strong shadow-[0_16px_32px_-16px_rgba(0,0,0,0.6)]"
       >
         <nav aria-label="Mobile" className="container-x py-3">
           <ul>
@@ -65,7 +65,7 @@ export function MobileNav({ items, cta }: { items: NavItem[]; cta: NavItem }) {
                   onClick={() => setOpen(false)}
                 >
                   {item.label}
-                  <span aria-hidden="true" className="text-on-ink-muted">
+                  <span aria-hidden="true" className="text-muted">
                     →
                   </span>
                 </Link>
