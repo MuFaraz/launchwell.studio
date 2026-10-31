@@ -18,7 +18,7 @@ const rate = `${usd(startingPrices.agencyHourly.min)}–${startingPrices.agencyH
 
 export const metadata: Metadata = {
   title: { absolute: "White-Label Web Development for Agencies" },
-  description: `An extra developer for your agency: WordPress, WooCommerce, Shopify and custom builds under your brand. ${rate} or fixed price. First task at half rate.`,
+  description: `An extra developer for your agency: WordPress, WooCommerce, Shopify and custom builds under your brand. ${rate} or fixed price. First task half rate.`,
   alternates: { canonical: path },
   openGraph: { url: path },
 };

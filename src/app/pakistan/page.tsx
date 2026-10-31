@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FaqList } from "@/components/faq-list";
+import { JsonLd, faqJsonLd } from "@/components/json-ld";
 import { LeadForm } from "@/components/lead-form";
 import { SectionHeader } from "@/components/section-header";
 import { TrackedLink } from "@/components/tracked-link";
@@ -9,7 +11,7 @@ import { site, whatsappUrl } from "@/config/site";
 import { pkr } from "@/lib/format";
 
 export const metadata: Metadata = {
-  title: "Website, online store & AI chatbot in Pakistan",
+  title: { absolute: "Website & Online Store in Pakistan · Launchwell" },
   description: `Business website from ${pkr(pkrPackages[0].price)}, online store from ${pkr(pkrPackages[1].price)}, website + AI chatbot from ${pkr(pkrPackages[2].price)}. Fixed price, WhatsApp support, based in Karachi.`,
   alternates: { canonical: "/pakistan" },
   openGraph: { url: "/pakistan", locale: "en_PK" },
@@ -50,9 +52,11 @@ const faqs = [
 export default function PakistanPage() {
   return (
     <>
+      <JsonLd data={faqJsonLd(faqs)} />
       <section aria-labelledby="pk-title" className="border-b border-line">
         <div className="container-x pt-14 pb-20 md:pt-20 lg:pb-24">
-          <p className="eyebrow text-muted">Pakistan · Karachi se, poore Pakistan ke liye</p>
+          <Breadcrumbs tone="light" items={[{ name: "Pakistan", path: "/pakistan" }]} />
+          <p className="eyebrow mt-8 text-muted">Pakistan · Karachi se, poore Pakistan ke liye</p>
           <h1
             id="pk-title"
             className="t-h1 mt-6 max-w-4xl"
